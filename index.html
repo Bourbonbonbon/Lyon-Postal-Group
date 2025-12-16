@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>里昂邮政集团</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #0056a6;
+            --secondary-color: #e30613;
+            --light-color: #f5f5f5;
+            --dark-color: #333333;
+            --border-color: #ddd;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+            transition: background-image 0.5s ease;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            height: 70px;
+            width: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: white;
+            cursor: pointer;
+        }
+        
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-placeholder {
+            color: var(--primary-color);
+            font-size: 12px;
+            text-align: center;
+            padding: 5px;
+        }
+        
+        .site-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .site-subtitle {
+            font-size: 14px;
+            color: var(--dark-color);
+            margin-top: 5px;
+        }
+        
+        /* 标签页导航 */
+        .tabs {
+            display: flex;
+            background-color: white;
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-color);
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background-color: rgba(0, 86, 166, 0.05);
+            color: var(--primary-color);
+        }
+        
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            background-color: rgba(0, 86, 166, 0.05);
+        }
+        
+        /* 内容区域 */
+        .content {
+            min-height: 600px;
+            background-color: white;
+            padding: 30px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        /* 图片显示区域 */
+        .images-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .image-item {
+            width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background-color: white;
+            transition: transform 0.3s;
+        }
+        
+        .image-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        
+        .image-info {
+            padding: 15px;
+        }
+        
+        .image-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .image-date {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 50px 20px;
+            color: #888;
+            font-size: 16px;
+        }
+        
+        .no-data i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #004085;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .btn-danger {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .modal-lg {
+            max-width: 800px;
+        }
+        
+        .modal-header {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+        }
+        
+        .close-modal:hover {
+            color: var(--dark-color);
+        }
+        
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .password-prompt {
+            text-align: center;
+        }
+        
+        .password-prompt i {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .image-upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .image-upload-area:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .image-upload-area i {
+            font-size: 40px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        
+        .upload-instruction {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        /* 图片预览 */
+        .image-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .preview-item {
+            width: 100px;
+            height: 100px;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .remove-preview {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        /* 图片放大查看 */
+        .image-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+        
+        .image-viewer.active {
+            display: flex;
+        }
+        
+        .viewer-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        .close-viewer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
+        /* 设置页面样式 */
+        .settings-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .setting-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+        
+        .setting-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .current-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .current-image img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .current-image-placeholder {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            color: #888;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            color: #666;
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .tab {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .image-item {
+                width: 100%;
+            }
+            
+            .settings-container {
+                flex-direction: column;
+            }
+        }
+        
+        /* 管理操作按钮 */
+        .manage-actions {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .manage-btn {
+            flex: 1;
+            padding: 8px 5px;
+            font-size: 12px;
+        }
+        
+        /* 上传状态提示 */
+        .status-message {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            text-align: center;
+            display: none;
+        }
+        
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景图片 -->
+    <div id="background-image"></div>
+    
+    <div class="container">
+        <!-- 网站头部 -->
+        <header>
+            <div class="header-content">
+                <div class="logo" id="logo-container">
+                    <div class="logo-placeholder">点击上传LOGO<br>75×75</div>
+                </div>
+                <div>
+                    <h1 class="site-title">里昂邮政集团</h1>
+                    <p class="site-subtitle">LYON POSTAL GROUP - 连接世界的邮递服务</p>
+                </div>
+            </div>
+            
+            <!-- 标签页导航 -->
+            <div class="tabs">
+                <div class="tab active" data-tab="announcement">公告</div>
+                <div class="tab" data-tab="business">业务介绍</div>
+                <div class="tab" data-tab="branches">网点清单</div>
+                <div class="tab" data-tab="fees">资费清单</div>
+                <div class="tab" data-tab="postage">邮资清单</div>
+                <div class="tab" data-tab="products">邮品清单</div>
+                <div class="tab" data-tab="settings">设置</div>
+                <div class="tab" data-tab="poke">戳戳我</div>
+            </div>
+        </header>
+        
+        <!-- 主内容区域 -->
+        <main>
+            <!-- 公告标签页 -->
+            <section id="announcement" class="tab-content active content">
+                <h2 class="page-title">集团公告</h2>
+                <div class="images-container" id="announcement-images">
+                    <!-- 图片将通过JavaScript动态加载 -->
+                </div>
+                <div class="actions">
+                    <button class="btn" id="add-announcement-btn">上传新公告</button>
+                </div>
+            </section>
+            
+            <!-- 业务介绍标签页 -->
+            <section id="business" class="tab-content content">
+                <h2 class="page-title">业务介绍</h2>
+                <div class="images-container" id="business-images">
+                    <!-- 图片将通过JavaScript动态加载 -->
+                </div>
+                <div class="actions">
+                    <button class="btn" id="add-business-btn">上传业务介绍</button>
+                </div>
+            </section>
+            
+            <!-- 网点清单标签页 -->
+            <section id="branches" class="tab-content content">
+                <h2 class="page-title">网点清单</h2>
+                <div class="images-container" id="branches-images">
+                    <!-- 图片将通过JavaScript动态加载 -->
+                </div>
+                <div class="actions">
+                    <button class="btn" id="add-branches-btn">上传网点清单</button>
+                </div>
+            </section>
+            
+            <!-- 资费清单标签页 -->
+            <section id="fees" class="tab-content content">
+                <h2 class="page-title">资费清单</h2>
+                <div class="images-container" id="fees-images">
+                    <!-- 图片将通过JavaScript动态加载 -->
+                </div>
+                <div class="actions">
+                    <button class="btn" id="add-fees-btn">上传资费清单</button>
+                </div>
+            </section>
+            
+            <!-- 邮资清单标签页 -->
+            <section id="postage" class="tab-content content">
+                <h2 class="page-title">邮资清单</h2>
+                <div class="images-container" id="postage-images">
+                    <!-- 图片将通过JavaScript动态加载 -->
+                </div>
+                <div class="actions">
+                    <button class="btn" id="add-postage-btn">上传邮资清单</button>
+                </div>
+            </section>
+            
+            <!-- 邮品清单标签页 -->
+            <section id="products" class="tab-content content">
+                <h2 class="page-title">邮品清单</h2>
+                <div class="images-container" id="products-images">
+                    <!-- 图片将通过JavaScript动态加载 -->
+                </div>
+                <div class="actions">
+                    <button class="btn" id="add-products-btn">上传邮品清单</button>
+                </div>
+            </section>
+            
+            <!-- 设置标签页 -->
+            <section id="settings" class="tab-content content">
+                <h2 class="page-title">系统设置</h2>
+                <div class="settings-container">
+                    <div class="setting-section">
+                        <h3 class="setting-title">LOGO设置</h3>
+                        <div class="current-image" id="logo-preview">
+                            <div class="current-image-placeholder">
+                                <div>当前LOGO<br>75×75像素</div>
+                            </div>
+                        </div>
+                        <div class="manage-actions">
+                            <button class="btn" id="upload-logo-btn">上传LOGO</button>
+                            <button class="btn btn-danger" id="delete-logo-btn">删除LOGO</button>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-section">
+                        <h3 class="setting-title">背景设置</h3>
+                        <div class="current-image" id="background-preview">
+                            <div class="current-image-placeholder">
+                                <div>当前背景</div>
+                            </div>
+                        </div>
+                        <div class="manage-actions">
+                            <button class="btn" id="upload-bg-btn">上传背景</button>
+                            <button class="btn btn-danger" id="delete-bg-btn">删除背景</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 戳戳我标签页 -->
+            <section id="poke" class="tab-content content">
+                <h2 class="page-title">戳戳我</h2>
+                <div class="images-container" id="poke-images">
+                    <!-- 图片将通过JavaScript动态加载 -->
+                </div>
+                <div class="actions">
+                    <button class="btn" id="add-poke-btn">上传图片</button>
+                </div>
+            </section>
+        </main>
+        
+        <!-- 页脚 -->
+        <footer>
+            <p>© 2023 里昂邮政集团 版权所有 | 服务热线: 400-123-4567 | 邮箱: contact@lyonpostal.com</p>
+        </footer>
+    </div>
+    
+    <!-- 密码验证模态框 -->
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <div class="close-modal">&times;</div>
+            <div class="modal-header">管理验证</div>
+            <div class="password-prompt">
+                <i class="fas fa-lock"></i>
+                <p>请输入管理密码以继续操作</p>
+                <div class="form-group">
+                    <input type="password" id="password-input" class="form-control" placeholder="请输入管理密码">
+                </div>
+                <div class="status-message" id="password-status"></div>
+                <button class="btn" id="password-submit">验证</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 上传图片模态框 -->
+    <div id="upload-modal" class="modal">
+        <div class="modal-content">
+            <div class="close-modal">&times;</div>
+            <div class="modal-header" id="upload-title">上传图片</div>
+            <form id="upload-form">
+                <div class="form-group">
+                    <label class="form-label" id="title-label">标题 (仅公告需要)</label>
+                    <input type="text" id="image-title" class="form-control" placeholder="请输入图片标题">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">上传图片 (最多5张)</label>
+                    <div class="image-upload-area" id="image-drop-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>点击或拖拽图片到此处上传</p>
+                        <p class="upload-instruction">支持 JPG, JPEG, PNG 格式</p>
+                        <input type="file" id="image-upload" multiple accept=".jpg,.jpeg,.png" style="display: none;">
+                    </div>
+                    <div class="image-preview-container" id="image-preview-container"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">上传日期</label>
+                    <input type="text" id="upload-date" class="form-control" readonly>
+                </div>
+                
+                <div class="status-message" id="upload-status"></div>
+                
+                <div class="actions">
+                    <button type="submit" class="btn">提交</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-upload">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 图片查看器 -->
+    <div id="image-viewer" class="image-viewer">
+        <div class="close-viewer">&times;</div>
+        <img class="viewer-image" src="" alt="查看大图">
+    </div>
+    
+    <script>
+        // 全局变量
+        const DEFAULT_PASSWORD = "740302";
+        let currentTab = "announcement";
+        let currentCategory = "";
+        let currentEditId = null;
+        let uploadedImages = [];
+        let isEditing = false;
+        
+        // 数据存储结构
+        const storageKeys = {
+            announcement: 'lyonPost_announcement',
+            business: 'lyonPost_business',
+            branches: 'lyonPost_branches',
+            fees: 'lyonPost_fees',
+            postage: 'lyonPost_postage',
+            products: 'lyonPost_products',
+            poke: 'lyonPost_poke',
+            logo: 'lyonPost_logo',
+            background: 'lyonPost_background',
+            activeTab: 'lyonPost_activeTab'
+        };
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 从本地存储恢复上次活动的标签页
+            const savedTab = localStorage.getItem(storageKeys.activeTab);
+            if (savedTab) {
+                switchTab(savedTab);
+            }
+            
+            // 加载所有数据
+            loadAllData();
+            
+            // 设置事件监听器
+            setupEventListeners();
+        });
+        
+        // 切换标签页
+        function switchTab(tabId) {
+            // 更新当前标签页
+            currentTab = tabId;
+            
+            // 保存当前标签页到本地存储
+            localStorage.setItem(storageKeys.activeTab, tabId);
+            
+            // 更新标签页样式
+            document.querySelectorAll('.tab').forEach(tab => {
+                if (tab.dataset.tab === tabId) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            // 更新内容显示
+            document.querySelectorAll('.tab-content').forEach(content => {
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+        }
+        
+        // 加载所有数据
+        function loadAllData() {
+            // 加载LOGO
+            const logoData = localStorage.getItem(storageKeys.logo);
+            if (logoData) {
+                const logoObj = JSON.parse(logoData);
+                document.getElementById('logo-container').innerHTML = `<img src="${logoObj.image}" alt="LOGO" onclick="viewImage('${logoObj.image}')">`;
+                document.getElementById('logo-preview').innerHTML = `<img src="${logoObj.image}" alt="LOGO预览" onclick="viewImage('${logoObj.image}')">`;
+            }
+            
+            // 加载背景
+            const bgData = localStorage.getItem(storageKeys.background);
+            if (bgData) {
+                const bgObj = JSON.parse(bgData);
+                updateBackgroundImage(bgObj.image);
+                document.getElementById('background-preview').innerHTML = `<img src="${bgObj.image}" alt="背景预览" onclick="viewImage('${bgObj.image}')">`;
+            }
+            
+            // 加载各分类数据
+            const categories = ['announcement', 'business', 'branches', 'fees', 'postage', 'products', 'poke'];
+            categories.forEach(category => {
+                loadCategoryData(category);
+            });
+        }
+        
+        // 更新背景图片
+        function updateBackgroundImage(imageSrc) {
+            const bgDiv = document.getElementById('background-image');
+            bgDiv.style.backgroundImage = `url('${imageSrc}')`;
+            bgDiv.style.position = 'fixed';
+            bgDiv.style.top = '0';
+            bgDiv.style.left = '0';
+            bgDiv.style.width = '100%';
+            bgDiv.style.height = '100%';
+            bgDiv.style.backgroundSize = 'cover';
+            bgDiv.style.backgroundPosition = 'center';
+            bgDiv.style.zIndex = '-1';
+            bgDiv.style.opacity = '0.1';
+        }
+        
+        // 加载分类数据
+        function loadCategoryData(category) {
+            const container = document.getElementById(`${category}-images`);
+            const data = localStorage.getItem(storageKeys[category]);
+            
+            if (!data || data === '[]') {
+                container.innerHTML = `
+                    <div class="no-data">
+                        <i class="fas fa-image"></i>
+                        <p>暂无数据，请点击下方按钮上传</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const items = JSON.parse(data);
+            let html = '';
+            
+            items.forEach((item, index) => {
+                html += `
+                    <div class="image-item" data-id="${item.id}">
+                        <img class="image-preview" src="${item.image}" alt="${item.title || '图片'}" onclick="viewImage('${item.image}')">
+                        <div class="image-info">
+                            ${item.title ? `<div class="image-title">${item.title}</div>` : ''}
+                            <div class="image-date">${item.date}</div>
+                            <div class="manage-actions">
+                                <button class="btn btn-secondary manage-btn" onclick="editItem('${category}', '${item.id}')">修改</button>
+                                <button class="btn btn-danger manage-btn" onclick="deleteItem('${category}', '${item.id}')">删除</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 标签页切换
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    switchTab(tabId);
+                });
+            });
+            
+            // 密码模态框
+            const passwordModal = document.getElementById('password-modal');
+            const passwordInput = document.getElementById('password-input');
+            const passwordSubmit = document.getElementById('password-submit');
+            const closeModalBtns = document.querySelectorAll('.close-modal');
+            
+            // 打开上传模态框的按钮
+            document.getElementById('add-announcement-btn').addEventListener('click', function() {
+                openUploadModal('announcement');
+            });
+            
+            document.getElementById('add-business-btn').addEventListener('click', function() {
+                openUploadModal('business');
+            });
+            
+            document.getElementById('add-branches-btn').addEventListener('click', function() {
+                openUploadModal('branches');
+            });
+            
+            document.getElementById('add-fees-btn').addEventListener('click', function() {
+                openUploadModal('fees');
+            });
+            
+            document.getElementById('add-postage-btn').addEventListener('click', function() {
+                openUploadModal('postage');
+            });
+            
+            document.getElementById('add-products-btn').addEventListener('click', function() {
+                openUploadModal('products');
+            });
+            
+            document.getElementById('add-poke-btn').addEventListener('click', function() {
+                openUploadModal('poke');
+            });
+            
+            // 设置页面的上传按钮
+            document.getElementById('upload-logo-btn').addEventListener('click', function() {
+                openUploadModal('logo');
+            });
+            
+            document.getElementById('upload-bg-btn').addEventListener('click', function() {
+                openUploadModal('background');
+            });
+            
+            // 设置页面的删除按钮
+            document.getElementById('delete-logo-btn').addEventListener('click', function() {
+                if (confirm('确定要删除LOGO吗？')) {
+                    openPasswordModalForDelete('logo');
+                }
+            });
+            
+            document.getElementById('delete-bg-btn').addEventListener('click', function() {
+                if (confirm('确定要删除背景图片吗？')) {
+                    openPasswordModalForDelete('background');
+                }
+            });
+            
+            // 密码提交
+            passwordSubmit.addEventListener('click', function() {
+                const password = passwordInput.value;
+                const status = document.getElementById('password-status');
+                
+                if (password === DEFAULT_PASSWORD) {
+                    status.textContent = "验证成功！";
+                    status.className = "status-message status-success";
+                    status.style.display = "block";
+                    
+                    // 关闭密码模态框
+                    setTimeout(() => {
+                        passwordModal.classList.remove('active');
+                        passwordInput.value = '';
+                        status.style.display = "none";
+                        
+                        // 根据当前类别打开相应的上传模态框
+                        if (currentCategory === 'logo' || currentCategory === 'background') {
+                            openSettingUploadModal(currentCategory);
+                        } else {
+                            openUploadFormModal(currentCategory);
+                        }
+                    }, 1000);
+                } else {
+                    status.textContent = "密码错误，请重试！";
+                    status.className = "status-message status-error";
+                    status.style.display = "block";
+                    passwordInput.value = '';
+                }
+            });
+            
+            // 关闭模态框
+            closeModalBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    modal.classList.remove('active');
+                    
+                    // 重置表单
+                    if (modal.id === 'upload-modal') {
+                        resetUploadForm();
+                    }
+                    
+                    if (modal.id === 'password-modal') {
+                        document.getElementById('password-input').value = '';
+                        document.getElementById('password-status').style.display = "none";
+                    }
+                });
+            });
+            
+            // 点击模态框外部关闭
+            window.addEventListener('click', function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.classList.remove('active');
+                    
+                    // 重置表单
+                    if (event.target.id === 'upload-modal') {
+                        resetUploadForm();
+                    }
+                    
+                    if (event.target.id === 'password-modal') {
+                        document.getElementById('password-input').value = '';
+                        document.getElementById('password-status').style.display = "none";
+                    }
+                }
+            });
+            
+            // 取消上传
+            document.getElementById('cancel-upload').addEventListener('click', function() {
+                document.getElementById('upload-modal').classList.remove('active');
+                resetUploadForm();
+            });
+            
+            // 图片上传
+            const imageUpload = document.getElementById('image-upload');
+            const imageDropArea = document.getElementById('image-drop-area');
+            
+            imageDropArea.addEventListener('click', function() {
+                imageUpload.click();
+            });
+            
+            imageUpload.addEventListener('change', function() {
+                handleImageUpload(this.files);
+            });
+            
+            // 拖放上传
+            imageDropArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#0056a6';
+                this.style.backgroundColor = 'rgba(0, 86, 166, 0.05)';
+            });
+            
+            imageDropArea.addEventListener('dragleave', function() {
+                this.style.borderColor = '#ddd';
+                this.style.backgroundColor = '';
+            });
+            
+            imageDropArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#ddd';
+                this.style.backgroundColor = '';
+                
+                if (e.dataTransfer.files.length) {
+                    handleImageUpload(e.dataTransfer.files);
+                }
+            });
+            
+            // 表单提交
+            document.getElementById('upload-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveUploadedData();
+            });
+            
+            // 图片查看器
+            document.querySelector('.close-viewer').addEventListener('click', function() {
+                document.getElementById('image-viewer').classList.remove('active');
+            });
+            
+            document.getElementById('image-viewer').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        }
+        
+        // 打开密码验证模态框（用于上传）
+        function openUploadModal(category) {
+            currentCategory = category;
+            isEditing = false;
+            currentEditId = null;
+            document.getElementById('password-modal').classList.add('active');
+            document.getElementById('password-input').focus();
+        }
+        
+        // 打开密码验证模态框（用于删除设置）
+        function openPasswordModalForDelete(type) {
+            currentCategory = type;
+            isEditing = false;
+            document.getElementById('password-modal').classList.add('active');
+            document.getElementById('password-input').focus();
+            
+            // 临时修改密码提交处理函数
+            const originalSubmitHandler = document.getElementById('password-submit').onclick;
+            document.getElementById('password-submit').onclick = function() {
+                const password = document.getElementById('password-input').value;
+                const status = document.getElementById('password-status');
+                
+                if (password === DEFAULT_PASSWORD) {
+                    status.textContent = "验证成功！";
+                    status.className = "status-message status-success";
+                    status.style.display = "block";
+                    
+                    setTimeout(() => {
+                        document.getElementById('password-modal').classList.remove('active');
+                        document.getElementById('password-input').value = '';
+                        status.style.display = "none";
+                        
+                        // 执行删除操作
+                        deleteSettingItem(type);
+                        
+                        // 恢复原始处理函数
+                        document.getElementById('password-submit').onclick = originalSubmitHandler;
+                    }, 1000);
+                } else {
+                    status.textContent = "密码错误，请重试！";
+                    status.className = "status-message status-error";
+                    status.style.display = "block";
+                    document.getElementById('password-input').value = '';
+                }
+            };
+        }
+        
+        // 打开上传表单模态框
+        function openUploadFormModal(category) {
+            const modal = document.getElementById('upload-modal');
+            const title = document.getElementById('upload-title');
+            const titleLabel = document.getElementById('title-label');
+            const titleInput = document.getElementById('image-title');
+            
+            // 设置模态框标题
+            const categoryTitles = {
+                announcement: isEditing ? '修改公告' : '上传公告',
+                business: isEditing ? '修改业务介绍' : '上传业务介绍',
+                branches: isEditing ? '修改网点清单' : '上传网点清单',
+                fees: isEditing ? '修改资费清单' : '上传资费清单',
+                postage: isEditing ? '修改邮资清单' : '上传邮资清单',
+                products: isEditing ? '修改邮品清单' : '上传邮品清单',
+                poke: isEditing ? '修改戳戳我图片' : '上传戳戳我图片'
+            };
+            
+            title.textContent = categoryTitles[category] || '上传图片';
+            
+            // 只有公告需要标题
+            if (category === 'announcement') {
+                titleLabel.style.display = 'block';
+                titleInput.style.display = 'block';
+            } else {
+                titleLabel.style.display = 'none';
+                titleInput.style.display = 'none';
+            }
+            
+            // 设置当前日期
+            const now = new Date();
+            const dateString = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            document.getElementById('upload-date').value = dateString;
+            
+            // 显示模态框
+            modal.classList.add('active');
+            
+            // 重置已上传的图片
+            uploadedImages = [];
+            document.getElementById('image-preview-container').innerHTML = '';
+        }
+        
+        // 打开设置上传模态框
+        function openSettingUploadModal(type) {
+            const modal = document.getElementById('upload-modal');
+            const title = document.getElementById('upload-title');
+            const titleLabel = document.getElementById('title-label');
+            const titleInput = document.getElementById('image-title');
+            const dateField = document.getElementById('upload-date').parentElement;
+            
+            if (type === 'logo') {
+                title.textContent = '上传LOGO';
+                titleLabel.style.display = 'none';
+                titleInput.style.display = 'none';
+                dateField.style.display = 'none';
+            } else if (type === 'background') {
+                title.textContent = '上传背景';
+                titleLabel.style.display = 'none';
+                titleInput.style.display = 'none';
+                dateField.style.display = 'none';
+            }
+            
+            // 设置当前日期
+            const now = new Date();
+            const dateString = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            document.getElementById('upload-date').value = dateString;
+            
+            // 显示模态框
+            modal.classList.add('active');
+            
+            // 重置已上传的图片
+            uploadedImages = [];
+            document.getElementById('image-preview-container').innerHTML = '';
+        }
+        
+        // 处理图片上传
+        function handleImageUpload(files) {
+            const maxImages = (currentCategory === 'logo' || currentCategory === 'background') ? 1 : 5;
+            const previewContainer = document.getElementById('image-preview-container');
+            
+            // 检查已上传图片数量
+            if (uploadedImages.length + files.length > maxImages) {
+                alert(`最多只能上传${maxImages}张图片`);
+                return;
+            }
+            
+            // 处理每个文件
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                // 检查文件类型
+                if (!file.type.match('image/jpeg') && !file.type.match('image/jpg') && !file.type.match('image/png')) {
+                    alert('只支持JPG、JPEG、PNG格式的图片');
+                    continue;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const imageData = e.target.result;
+                    uploadedImages.push(imageData);
+                    
+                    // 创建预览
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    previewItem.innerHTML = `
+                        <img src="${imageData}" alt="预览">
+                        <div class="remove-preview" onclick="removePreview(${uploadedImages.length - 1})">×</div>
+                    `;
+                    
+                    previewContainer.appendChild(previewItem);
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // 移除预览图片
+        function removePreview(index) {
+            uploadedImages.splice(index, 1);
+            
+            // 重新渲染预览
+            const previewContainer = document.getElementById('image-preview-container');
+            previewContainer.innerHTML = '';
+            
+            uploadedImages.forEach((image, i) => {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'preview-item';
+                previewItem.innerHTML = `
+                    <img src="${image}" alt="预览">
+                    <div class="remove-preview" onclick="removePreview(${i})">×</div>
+                `;
+                
+                previewContainer.appendChild(previewItem);
+            });
+        }
+        
+        // 重置上传表单
+        function resetUploadForm() {
+            document.getElementById('image-title').value = '';
+            document.getElementById('upload-date').value = '';
+            uploadedImages = [];
+            document.getElementById('image-preview-container').innerHTML = '';
+            document.getElementById('upload-status').style.display = 'none';
+            currentEditId = null;
+            isEditing = false;
+            
+            // 重置表单字段显示
+            document.getElementById('title-label').style.display = 'block';
+            document.getElementById('image-title').style.display = 'block';
+            document.getElementById('upload-date').parentElement.style.display = 'block';
+        }
+        
+        // 保存上传的数据
+        function saveUploadedData() {
+            if (uploadedImages.length === 0) {
+                const status = document.getElementById('upload-status');
+                status.textContent = "请至少上传一张图片";
+                status.className = "status-message status-error";
+                status.style.display = "block";
+                return;
+            }
+            
+            const status = document.getElementById('upload-status');
+            
+            // 处理LOGO和背景上传
+            if (currentCategory === 'logo' || currentCategory === 'background') {
+                const imageData = uploadedImages[0];
+                const now = new Date();
+                const dateString = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                
+                const data = {
+                    id: Date.now().toString(),
+                    image: imageData,
+                    date: dateString
+                };
+                
+                localStorage.setItem(storageKeys[currentCategory], JSON.stringify(data));
+                
+                // 更新显示
+                if (currentCategory === 'logo') {
+                    document.getElementById('logo-container').innerHTML = `<img src="${imageData}" alt="LOGO" onclick="viewImage('${imageData}')">`;
+                    document.getElementById('logo-preview').innerHTML = `<img src="${imageData}" alt="LOGO预览" onclick="viewImage('${imageData}')">`;
+                } else if (currentCategory === 'background') {
+                    updateBackgroundImage(imageData);
+                    document.getElementById('background-preview').innerHTML = `<img src="${imageData}" alt="背景预览" onclick="viewImage('${imageData}')">`;
+                }
+                
+                status.textContent = "上传成功！";
+                status.className = "status-message status-success";
+                status.style.display = "block";
+                
+                setTimeout(() => {
+                    document.getElementById('upload-modal').classList.remove('active');
+                    resetUploadForm();
+                }, 1000);
+                
+                return;
+            }
+            
+            // 处理其他分类上传
+            const title = document.getElementById('image-title').value;
+            const date = document.getElementById('upload-date').value;
+            
+            // 获取现有数据
+            const existingData = localStorage.getItem(storageKeys[currentCategory]);
+            let items = existingData ? JSON.parse(existingData) : [];
+            
+            // 如果是编辑模式
+            if (isEditing && currentEditId) {
+                // 找到要编辑的项
+                const index = items.findIndex(item => item.id === currentEditId);
+                if (index !== -1) {
+                    // 更新现有项
+                    items[index] = {
+                        id: currentEditId,
+                        title: currentCategory === 'announcement' ? title : '',
+                        image: uploadedImages[0],
+                        date: date
+                    };
+                }
+            } else {
+                // 添加新项
+                uploadedImages.forEach(imageData => {
+                    const newItem = {
+                        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+                        title: currentCategory === 'announcement' ? title : '',
+                        image: imageData,
+                        date: date
+                    };
+                    items.unshift(newItem); // 添加到开头
+                });
+            }
+            
+            // 保存到本地存储
+            localStorage.setItem(storageKeys[currentCategory], JSON.stringify(items));
+            
+            // 更新显示
+            loadCategoryData(currentCategory);
+            
+            status.textContent = isEditing ? "修改成功！" : "上传成功！";
+            status.className = "status-message status-success";
+            status.style.display = "block";
+            
+            setTimeout(() => {
+                document.getElementById('upload-modal').classList.remove('active');
+                resetUploadForm();
+            }, 1000);
+        }
+        
+        // 删除设置项（LOGO或背景）
+        function deleteSettingItem(type) {
+            if (type === 'logo') {
+                localStorage.removeItem(storageKeys.logo);
+                document.getElementById('logo-container').innerHTML = '<div class="logo-placeholder">点击上传LOGO<br>75×75</div>';
+                document.getElementById('logo-preview').innerHTML = '<div class="current-image-placeholder"><div>当前LOGO<br>75×75像素</div></div>';
+            } else if (type === 'background') {
+                localStorage.removeItem(storageKeys.background);
+                document.getElementById('background-image').style.backgroundImage = '';
+                document.getElementById('background-preview').innerHTML = '<div class="current-image-placeholder"><div>当前背景</div></div>';
+            }
+            
+            alert('删除成功！');
+        }
+        
+        // 编辑项目
+        function editItem(category, id) {
+            // 验证密码
+            currentCategory = category;
+            currentEditId = id;
+            isEditing = true;
+            
+            // 获取项目数据
+            const existingData = localStorage.getItem(storageKeys[category]);
+            if (!existingData) return;
+            
+            const items = JSON.parse(existingData);
+            const item = items.find(item => item.id === id);
+            if (!item) return;
+            
+            // 打开密码验证模态框
+            document.getElementById('password-modal').classList.add('active');
+            document.getElementById('password-input').focus();
+            
+            // 密码验证通过后的回调
+            const originalPasswordSubmit = document.getElementById('password-submit').onclick;
+            
+            document.getElementById('password-submit').onclick = function() {
+                const password = document.getElementById('password-input').value;
+                const status = document.getElementById('password-status');
+                
+                if (password === DEFAULT_PASSWORD) {
+                    status.textContent = "验证成功！";
+                    status.className = "status-message status-success";
+                    status.style.display = "block";
+                    
+                    // 关闭密码模态框
+                    setTimeout(() => {
+                        document.getElementById('password-modal').classList.remove('active');
+                        document.getElementById('password-input').value = '';
+                        status.style.display = "none";
+                        
+                        // 打开上传表单并填充数据
+                        openEditModal(category, item);
+                        
+                        // 恢复原始处理函数
+                        document.getElementById('password-submit').onclick = originalPasswordSubmit;
+                    }, 1000);
+                } else {
+                    status.textContent = "密码错误，请重试！";
+                    status.className = "status-message status-error";
+                    status.style.display = "block";
+                    document.getElementById('password-input').value = '';
+                }
+            };
+        }
+        
+        // 打开编辑模态框
+        function openEditModal(category, item) {
+            const modal = document.getElementById('upload-modal');
+            const title = document.getElementById('upload-title');
+            const titleLabel = document.getElementById('title-label');
+            const titleInput = document.getElementById('image-title');
+            
+            // 设置模态框标题
+            const categoryTitles = {
+                announcement: '修改公告',
+                business: '修改业务介绍',
+                branches: '修改网点清单',
+                fees: '修改资费清单',
+                postage: '修改邮资清单',
+                products: '修改邮品清单',
+                poke: '修改戳戳我图片'
+            };
+            
+            title.textContent = categoryTitles[category] || '修改图片';
+            
+            // 填充数据
+            if (category === 'announcement') {
+                titleLabel.style.display = 'block';
+                titleInput.style.display = 'block';
+                titleInput.value = item.title || '';
+            } else {
+                titleLabel.style.display = 'none';
+                titleInput.style.display = 'none';
+            }
+            
+            document.getElementById('upload-date').value = item.date;
+            
+            // 显示图片预览
+            uploadedImages = [item.image];
+            const previewContainer = document.getElementById('image-preview-container');
+            previewContainer.innerHTML = '';
+            
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            previewItem.innerHTML = `
+                <img src="${item.image}" alt="预览">
+                <div class="remove-preview" onclick="removePreview(0)">×</div>
+            `;
+            
+            previewContainer.appendChild(previewItem);
+            
+            // 显示模态框
+            modal.classList.add('active');
+        }
+        
+        // 删除项目
+        function deleteItem(category, id) {
+            if (!confirm('确定要删除这个项目吗？')) {
+                return;
+            }
+            
+            // 验证密码
+            const password = prompt('请输入管理密码：');
+            if (password !== DEFAULT_PASSWORD) {
+                alert('密码错误，删除操作已取消');
+                return;
+            }
+            
+            // 获取现有数据
+            const existingData = localStorage.getItem(storageKeys[category]);
+            if (!existingData) return;
+            
+            let items = JSON.parse(existingData);
+            
+            // 过滤掉要删除的项
+            items = items.filter(item => item.id !== id);
+            
+            // 保存到本地存储
+            localStorage.setItem(storageKeys[category], JSON.stringify(items));
+            
+            // 更新显示
+            loadCategoryData(category);
+            
+            alert('删除成功！');
+        }
+        
+        // 查看大图
+        function viewImage(imageSrc) {
+            const viewer = document.getElementById('image-viewer');
+            const viewerImage = viewer.querySelector('.viewer-image');
+            
+            viewerImage.src = imageSrc;
+            viewer.classList.add('active');
+        }
+        
+        // 导出函数到全局作用域
+        window.viewImage = viewImage;
+        window.editItem = editItem;
+        window.deleteItem = deleteItem;
+        window.removePreview = removePreview;
+    </script>
+</body>
+</html>

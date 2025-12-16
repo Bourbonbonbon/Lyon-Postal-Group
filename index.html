@@ -1487,3 +1487,734 @@
     window.editContentItem = editContentItem;
     window.deleteContentItem = deleteContentItem;
 </script>
+
+    <script>
+    // 全局变量
+    const DEFAULT_PASSWORD = "740302";
+    const TABS = [
+        "announcement", "business", "branches", "fees", 
+        "postage", "products", "settings", "contact"
+    ];
+    
+    let currentTab = localStorage.getItem("currentTab") || "announcement";
+    let currentUploadType = null;
+    let uploadedFiles = [];
+    let editingItemId = null;
+    let passwordVerified = false;
+    
+    // DOM元素
+    const tabElements = document.querySelectorAll(".tab");
+    const tabContentElements = document.querySelectorAll(".tab-content");
+    const uploadModal = document.getElementById("upload-modal");
+    const modalTitle = document.getElementById("modal-title");
+    const passwordInput = document.getElementById("password");
+    const passwordError = document.getElementById("password-error");
+    const uploadForm = document.getElementById("upload-form");
+    const fileInput = document.getElementById("file-input");
+    const filePreview = document.getElementById("file-preview");
+    const dropArea = document.getElementById("drop-area");
+    const submitBtn = document.getElementById("submit-btn");
+    const closeModalBtns = document.querySelectorAll(".close-modal");
+    const imageViewer = document.getElementById("image-viewer");
+    const closeViewerBtn = document.querySelector(".close-viewer");
+    const viewedImage = document.getElementById("viewed-image");
+    
+    // 初始化
+    document.addEventListener("DOMContentLoaded", function() {
+        initializeApp();
+        loadAllData();
+        setupEventListeners();
+    });
+    
+    // 初始化应用
+    function initializeApp() {
+        // 设置当前活动标签
+        setActiveTab(currentTab);
+        
+        // 初始化LOGO和背景
+        const savedLogo = localStorage.getItem("siteLogo");
+        const savedBackground = localStorage.getItem("siteBackground");
+        
+        if (savedLogo) {
+            document.getElementById("site-logo").src = savedLogo;
+            document.getElementById("current-logo").src = savedLogo;
+        }
+        
+        if (savedBackground) {
+            document.getElementById("background-image").src = savedBackground;
+            document.getElementById("current-background").src = savedBackground;
+        }
+    }
+    
+    // 设置事件监听器
+    function setupEventListeners() {
+        // 标签切换
+        tabElements.forEach(tab => {
+            tab.addEventListener("click", function() {
+                const tabId = this.getAttribute("data-tab");
+                setActiveTab(tabId);
+                localStorage.setItem("currentTab", tabId);
+            });
+        });
+        
+        // 添加按钮点击事件
+        document.getElementById("add-announcement").addEventListener("click", () => openUploadModal("announcement"));
+        document.getElementById("add-business").addEventListener("click", () => openUploadModal("business"));
+        document.getElementById("add-branch").addEventListener("click", () => openUploadModal("branches"));
+        document.getElementById("add-fee").addEventListener("click", () => openUploadModal("fees"));
+        document.getElementById("add-postage").addEventListener("click", () => openUploadModal("postage"));
+        document.getElementById("add-product").addEventListener("click", () => openUploadModal("products"));
+        document.getElementById("add-contact").addEventListener("click", () => openUploadModal("contact"));
+        
+        // 设置页面按钮事件
+        document.getElementById("upload-logo").addEventListener("click", () => openLogoUpload());
+        document.getElementById("remove-logo").addEventListener("click", removeLogo);
+        document.getElementById("upload-background").addEventListener("click", () => openBackgroundUpload());
+        document.getElementById("remove-background").addEventListener("click", removeBackground);
+        
+        // 模态框关闭事件
+        closeModalBtns.forEach(btn => {
+            btn.addEventListener("click", closeUploadModal);
+        });
+        
+        // 文件选择事件
+        fileInput.addEventListener("change", handleFileSelect);
+        
+        // 拖放事件
+        dropArea.addEventListener("dragover", function(e) {
+            e.preventDefault();
+            this.style.borderColor = "#1e5799";
+            this.style.backgroundColor = "#f0f7ff";
+        });
+        
+        dropArea.addEventListener("dragleave", function(e) {
+            e.preventDefault();
+            this.style.borderColor = "#ccc";
+            this.style.backgroundColor = "";
+        });
+        
+        dropArea.addEventListener("drop", function(e) {
+            e.preventDefault();
+            this.style.borderColor = "#ccc";
+            this.style.backgroundColor = "";
+            
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+        
+        // 提交按钮事件
+        submitBtn.addEventListener("click", handleSubmitClick);
+        
+        // 图片查看器关闭事件
+        closeViewerBtn.addEventListener("click", closeImageViewer);
+        
+        // 点击模态框外部关闭
+        uploadModal.addEventListener("click", function(e) {
+            if (e.target === this) {
+                closeUploadModal();
+            }
+        });
+        
+        // 点击图片查看器外部关闭
+        imageViewer.addEventListener("click", function(e) {
+            if (e.target === this) {
+                closeImageViewer();
+            }
+        });
+        
+        // 密码输入框回车事件
+        passwordInput.addEventListener("keyup", function(e) {
+            if (e.key === "Enter") {
+                handlePasswordSubmit();
+            }
+        });
+        
+        // 图片标题输入框回车事件
+        document.getElementById("image-title").addEventListener("keyup", function(e) {
+            if (e.key === "Enter") {
+                handleSubmitClick();
+            }
+        });
+    }
+    
+    // 设置活动标签
+    function setActiveTab(tabId) {
+        // 更新标签
+        tabElements.forEach(tab => {
+            if (tab.getAttribute("data-tab") === tabId) {
+                tab.classList.add("active");
+            } else {
+                tab.classList.remove("active");
+            }
+        });
+        
+        // 更新内容区域
+        tabContentElements.forEach(content => {
+            if (content.id === tabId) {
+                content.classList.add("active");
+            } else {
+                content.classList.remove("active");
+            }
+        });
+        
+        currentTab = tabId;
+    }
+    
+    // 打开上传模态框
+    function openUploadModal(type) {
+        currentUploadType = type;
+        editingItemId = null;
+        passwordVerified = false;
+        
+        // 设置模态框标题
+        const titles = {
+            announcement: "上传公告",
+            business: "上传业务介绍",
+            branches: "上传网点清单",
+            fees: "上传资费清单",
+            postage: "上传邮资清单",
+            products: "上传邮品清单",
+            contact: "上传内容"
+        };
+        
+        modalTitle.textContent = titles[type] || "上传内容";
+        
+        // 重置表单
+        resetUploadForm();
+        
+        // 显示模态框
+        uploadModal.classList.add("active");
+        passwordInput.focus();
+        
+        // 更新提交按钮文本
+        submitBtn.textContent = "验证密码";
+    }
+    
+    // 打开LOGO上传
+    function openLogoUpload() {
+        openPasswordPrompt("logo");
+    }
+    
+    // 打开背景上传
+    function openBackgroundUpload() {
+        openPasswordPrompt("background");
+    }
+    
+    // 打开密码提示
+    function openPasswordPrompt(type) {
+        currentUploadType = type;
+        passwordVerified = false;
+        
+        // 设置模态框标题
+        modalTitle.textContent = type === "logo" ? "上传LOGO" : "上传背景";
+        
+        // 重置表单
+        resetUploadForm();
+        
+        // 显示模态框
+        uploadModal.classList.add("active");
+        passwordInput.focus();
+        
+        // 更新提交按钮文本
+        submitBtn.textContent = "验证密码";
+    }
+    
+    // 重置上传表单
+    function resetUploadForm() {
+        passwordInput.value = "";
+        passwordError.style.display = "none";
+        uploadForm.style.display = "none";
+        document.getElementById("image-title").value = "";
+        uploadedFiles = [];
+        filePreview.innerHTML = "";
+        submitBtn.textContent = "验证密码";
+    }
+    
+    // 关闭上传模态框
+    function closeUploadModal() {
+        uploadModal.classList.remove("active");
+        resetUploadForm();
+        passwordVerified = false;
+    }
+    
+    // 处理密码提交
+    function handlePasswordSubmit() {
+        const password = passwordInput.value.trim();
+        
+        if (password === DEFAULT_PASSWORD) {
+            passwordError.style.display = "none";
+            passwordVerified = true;
+            
+            // 如果是LOGO或背景上传，直接显示文件上传
+            if (currentUploadType === "logo" || currentUploadType === "background") {
+                showFileUpload();
+                submitBtn.textContent = "上传";
+            } else {
+                // 其他类型显示完整表单
+                uploadForm.style.display = "block";
+                document.getElementById("image-title").focus();
+                submitBtn.textContent = "提交";
+            }
+        } else {
+            passwordError.style.display = "block";
+            passwordInput.focus();
+            passwordVerified = false;
+        }
+    }
+    
+    // 显示文件上传区域
+    function showFileUpload() {
+        uploadForm.style.display = "block";
+        
+        // 如果是LOGO或背景，隐藏标题输入
+        if (currentUploadType === "logo" || currentUploadType === "background") {
+            document.querySelector("label[for='image-title']").parentElement.style.display = "none";
+        } else {
+            document.querySelector("label[for='image-title']").parentElement.style.display = "block";
+        }
+    }
+    
+    // 处理提交按钮点击
+    function handleSubmitClick() {
+        if (!passwordVerified) {
+            handlePasswordSubmit();
+        } else {
+            handleFormSubmit();
+        }
+    }
+    
+    // 处理表单提交
+    function handleFormSubmit() {
+        // 验证表单
+        if (currentUploadType !== "logo" && currentUploadType !== "background") {
+            const title = document.getElementById("image-title").value.trim();
+            if (!title) {
+                alert("请输入标题");
+                document.getElementById("image-title").focus();
+                return;
+            }
+        }
+        
+        if (uploadedFiles.length === 0) {
+            alert("请至少上传一张图片");
+            return;
+        }
+        
+        // 处理提交
+        if (currentUploadType === "logo") {
+            handleLogoUpload();
+        } else if (currentUploadType === "background") {
+            handleBackgroundUpload();
+        } else {
+            handleContentUpload();
+        }
+    }
+    
+    // 处理LOGO上传
+    function handleLogoUpload() {
+        const file = uploadedFiles[0]; // LOGO只取第一张
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const logoDataUrl = e.target.result;
+            
+            // 保存到localStorage
+            localStorage.setItem("siteLogo", logoDataUrl);
+            
+            // 更新页面显示
+            document.getElementById("site-logo").src = logoDataUrl;
+            document.getElementById("current-logo").src = logoDataUrl;
+            
+            alert("LOGO上传成功！");
+            closeUploadModal();
+        };
+        
+        reader.onerror = function() {
+            alert("LOGO上传失败，请重试");
+        };
+        
+        reader.readAsDataURL(file);
+    }
+    
+    // 处理背景上传
+    function handleBackgroundUpload() {
+        const file = uploadedFiles[0]; // 背景只取第一张
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const backgroundDataUrl = e.target.result;
+            
+            // 保存到localStorage
+            localStorage.setItem("siteBackground", backgroundDataUrl);
+            
+            // 更新页面显示
+            document.getElementById("background-image").src = backgroundDataUrl;
+            document.getElementById("current-background").src = backgroundDataUrl;
+            
+            alert("背景图片上传成功！");
+            closeUploadModal();
+        };
+        
+        reader.onerror = function() {
+            alert("背景上传失败，请重试");
+        };
+        
+        reader.readAsDataURL(file);
+    }
+    
+    // 处理内容上传
+    function handleContentUpload() {
+        const title = document.getElementById("image-title").value.trim();
+        const date = getCurrentDateTime();
+        
+        // 读取所有上传的文件
+        const readers = uploadedFiles.map(file => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    resolve({
+                        dataUrl: e.target.result,
+                        name: file.name
+                    });
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        });
+        
+        // 所有文件读取完成后保存数据
+        Promise.all(readers).then(fileData => {
+            const newItem = {
+                id: editingItemId || Date.now().toString(),
+                title: title,
+                date: date,
+                images: fileData.map(f => f.dataUrl)
+            };
+            
+            // 保存数据到localStorage
+            saveContentItem(currentUploadType, newItem, editingItemId !== null);
+            
+            // 重新加载数据
+            loadTabData(currentUploadType);
+            
+            alert(editingItemId ? "内容修改成功！" : "内容上传成功！");
+            closeUploadModal();
+        }).catch(error => {
+            console.error("文件读取错误:", error);
+            alert("文件上传失败，请重试");
+        });
+    }
+    
+    // 保存内容项
+    function saveContentItem(type, item, isEdit = false) {
+        const key = `lyonPost_${type}`;
+        let items = JSON.parse(localStorage.getItem(key)) || [];
+        
+        if (isEdit) {
+            // 修改现有项
+            const index = items.findIndex(i => i.id === item.id);
+            if (index !== -1) {
+                items[index] = item;
+            }
+        } else {
+            // 添加新项
+            items.unshift(item); // 新项放在最前面
+            
+            // 限制最多保存50条记录
+            if (items.length > 50) {
+                items = items.slice(0, 50);
+            }
+        }
+        
+        localStorage.setItem(key, JSON.stringify(items));
+    }
+    
+    // 删除内容项
+    function deleteContentItem(type, id) {
+        if (!confirm("确定要删除此项吗？")) {
+            return;
+        }
+        
+        const key = `lyonPost_${type}`;
+        let items = JSON.parse(localStorage.getItem(key)) || [];
+        items = items.filter(item => item.id !== id);
+        localStorage.setItem(key, JSON.stringify(items));
+        
+        // 重新加载数据
+        loadTabData(type);
+    }
+    
+    // 编辑内容项
+    function editContentItem(type, id) {
+        const key = `lyonPost_${type}`;
+        const items = JSON.parse(localStorage.getItem(key)) || [];
+        const item = items.find(i => i.id === id);
+        
+        if (!item) return;
+        
+        currentUploadType = type;
+        editingItemId = id;
+        passwordVerified = false;
+        
+        // 设置模态框标题
+        const titles = {
+            announcement: "修改公告",
+            business: "修改业务介绍",
+            branches: "修改网点清单",
+            fees: "修改资费清单",
+            postage: "修改邮资清单",
+            products: "修改邮品清单",
+            contact: "修改内容"
+        };
+        
+        modalTitle.textContent = titles[type] || "修改内容";
+        
+        // 重置表单
+        resetUploadForm();
+        
+        // 设置表单值
+        document.getElementById("image-title").value = item.title;
+        
+        // 添加现有图片到预览
+        item.images.forEach((imageDataUrl, index) => {
+            // 创建模拟文件对象用于预览
+            const blob = dataURLtoBlob(imageDataUrl);
+            const file = new File([blob], `image_${index}.png`, { type: "image/png" });
+            uploadedFiles.push(file);
+            createFilePreview(file);
+        });
+        
+        // 显示模态框
+        uploadModal.classList.add("active");
+        passwordInput.focus();
+    }
+    
+    // 将dataURL转换为Blob
+    function dataURLtoBlob(dataurl) {
+        const arr = dataurl.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
+    }
+    
+    // 加载所有数据
+    function loadAllData() {
+        TABS.forEach(tab => {
+            if (tab !== "settings") {
+                loadTabData(tab);
+            }
+        });
+    }
+    
+    // 加载标签页数据
+    function loadTabData(type) {
+        const key = `lyonPost_${type}`;
+        const items = JSON.parse(localStorage.getItem(key)) || [];
+        const container = document.getElementById(`${type}-container`);
+        
+        if (items.length === 0) {
+            container.innerHTML = `
+                <div class="empty-message">
+                    <i class="${getTabIcon(type)}"></i>
+                    <p>${getEmptyMessage(type)}</p>
+                </div>
+            `;
+            return;
+        }
+        
+        // 生成内容HTML
+        let html = '';
+        items.forEach(item => {
+            const firstImage = item.images[0];
+            html += `
+                <div class="image-item" data-id="${item.id}">
+                    <img src="${firstImage}" alt="${item.title}" onclick="viewImage('${firstImage}')">
+                    <div class="image-info">
+                        <div class="image-title">${item.title}</div>
+                        <div class="image-date">上传时间: ${item.date}</div>
+                        <div class="action-buttons" style="margin-top: 10px; justify-content: flex-start;">
+                            <button class="btn btn-secondary" onclick="editContentItem('${type}', '${item.id}')" style="padding: 8px 12px; font-size: 14px;">
+                                <i class="fas fa-edit"></i> 修改
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteContentItem('${type}', '${item.id}')" style="padding: 8px 12px; font-size: 14px;">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+    }
+    
+    // 获取标签页图标
+    function getTabIcon(type) {
+        const icons = {
+            announcement: "fas fa-bullhorn",
+            business: "fas fa-briefcase",
+            branches: "fas fa-map-marker-alt",
+            fees: "fas fa-money-bill-wave",
+            postage: "fas fa-stamp",
+            products: "fas fa-box-open",
+            contact: "fas fa-hand-point-up"
+        };
+        return icons[type] || "fas fa-image";
+    }
+    
+    // 获取空数据提示信息
+    function getEmptyMessage(type) {
+        const messages = {
+            announcement: "暂无公告，点击\"添加公告\"按钮上传",
+            business: "暂无业务介绍，点击\"添加业务介绍\"按钮上传",
+            branches: "暂无网点清单，点击\"添加网点清单\"按钮上传",
+            fees: "暂无资费清单，点击\"添加资费清单\"按钮上传",
+            postage: "暂无邮资清单，点击\"添加邮资清单\"按钮上传",
+            products: "暂无邮品清单，点击\"添加邮品清单\"按钮上传",
+            contact: "暂无内容，点击\"添加内容\"按钮上传"
+        };
+        return messages[type] || "暂无内容";
+    }
+    
+    // 获取当前日期时间
+    function getCurrentDateTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hour = String(now.getHours()).padStart(2, '0');
+        const minute = String(now.getMinutes()).padStart(2, '0');
+        
+        return `${year}年${month}月${day}日 ${hour}:${minute}`;
+    }
+    
+    // 查看图片大图
+    function viewImage(src) {
+        viewedImage.src = src;
+        imageViewer.classList.add("active");
+    }
+    
+    // 关闭图片查看器
+    function closeImageViewer() {
+        imageViewer.classList.remove("active");
+        viewedImage.src = "";
+    }
+    
+    // 删除LOGO
+    function removeLogo() {
+        if (!confirm("确定要删除LOGO吗？")) {
+            return;
+        }
+        
+        localStorage.removeItem("siteLogo");
+        document.getElementById("site-logo").src = "";
+        document.getElementById("current-logo").src = "";
+        
+        alert("LOGO已删除");
+    }
+    
+    // 删除背景
+    function removeBackground() {
+        if (!confirm("确定要删除背景图片吗？")) {
+            return;
+        }
+        
+        localStorage.removeItem("siteBackground");
+        document.getElementById("background-image").src = "";
+        document.getElementById("current-background").src = "";
+        
+        alert("背景图片已删除");
+    }
+    
+    // 处理文件选择
+    function handleFileSelect(e) {
+        const files = e.target.files;
+        handleFiles(files);
+    }
+    
+    // 处理文件
+    function handleFiles(files) {
+        // 检查文件数量
+        const maxFiles = (currentUploadType === "contact") ? 10 : 5; // 戳戳我标签页最多10张
+        if (uploadedFiles.length + files.length > maxFiles) {
+            alert(`最多只能上传${maxFiles}张图片`);
+            return;
+        }
+        
+        // 处理每个文件
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            
+            // 检查文件类型
+            if (!file.type.match("image/jpeg") && 
+                !file.type.match("image/jpg") && 
+                !file.type.match("image/png")) {
+                alert("只支持JPG、JPEG、PNG格式的图片");
+                continue;
+            }
+            
+            // 检查文件大小（限制5MB）
+            if (file.size > 5 * 1024 * 1024) {
+                alert(`文件 ${file.name} 大小超过5MB限制`);
+                continue;
+            }
+            
+            // 添加到上传文件列表
+            uploadedFiles.push(file);
+            
+            // 创建预览
+            createFilePreview(file);
+        }
+        
+        // 重置文件输入
+        fileInput.value = "";
+    }
+    
+    // 创建文件预览
+    function createFilePreview(file) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const previewItem = document.createElement("div");
+            previewItem.className = "file-preview-item";
+            
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.alt = "预览";
+            
+            const removeBtn = document.createElement("button");
+            removeBtn.className = "remove-file";
+            removeBtn.innerHTML = "&times;";
+            removeBtn.onclick = function() {
+                // 从上传文件列表中移除
+                const index = uploadedFiles.indexOf(file);
+                if (index > -1) {
+                    uploadedFiles.splice(index, 1);
+                }
+                
+                // 从预览中移除
+                previewItem.remove();
+            };
+            
+            previewItem.appendChild(img);
+            previewItem.appendChild(removeBtn);
+            filePreview.appendChild(previewItem);
+        };
+        
+        reader.onerror = function() {
+            alert(`无法预览文件: ${file.name}`);
+        };
+        
+        reader.readAsDataURL(file);
+    }
+    
+    // 暴露函数到全局作用域，以便HTML中调用
+    window.viewImage = viewImage;
+    window.editContentItem = editContentItem;
+    window.deleteContentItem = deleteContentItem;
+</script>

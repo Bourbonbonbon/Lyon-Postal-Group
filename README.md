@@ -1,4 +1,4 @@
-里昂邮政集团网站系统 (Lyon Postal Group)
+里昂邮政集团网站系统 (LYON POSTAL GROUP)
 
 ✨ 主要功能
 

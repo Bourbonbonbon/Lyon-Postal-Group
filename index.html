@@ -13,164 +13,146 @@
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
         
-        :root {
-            --primary-color: #0056a6;
-            --secondary-color: #e30613;
-            --light-color: #f5f5f5;
-            --dark-color: #333333;
-            --border-color: #ddd;
-            --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
         body {
-            background-color: #f8f9fa;
-            color: var(--dark-color);
-            transition: background-image 0.5s ease;
+            background-color: #f5f7fa;
+            color: #333;
             min-height: 100vh;
+            background-image: url('');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            transition: background-image 0.5s ease;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
         }
         
         /* 头部样式 */
         header {
-            background-color: white;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 51, 102, 0.95);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
         
-        .header-content {
+        .logo-container {
             display: flex;
             align-items: center;
-            padding: 15px 0;
+            gap: 15px;
         }
         
-        .logo {
-            height: 70px;
-            width: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            border: 1px solid var(--border-color);
+        .logo-img {
+            width: 75px;
+            height: 75px;
             border-radius: 8px;
-            overflow: hidden;
-            background-color: white;
+            object-fit: cover;
             cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s;
         }
         
-        .logo img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+        .logo-img:hover {
+            transform: scale(1.05);
         }
         
-        .logo-placeholder {
-            color: var(--primary-color);
-            font-size: 12px;
-            text-align: center;
-            padding: 5px;
-        }
-        
-        .site-title {
-            font-size: 24px;
+        .logo-text h1 {
+            font-size: 28px;
             font-weight: 700;
-            color: var(--primary-color);
+            letter-spacing: 1px;
         }
         
-        .site-subtitle {
+        .logo-text p {
             font-size: 14px;
-            color: var(--dark-color);
+            opacity: 0.9;
             margin-top: 5px;
         }
         
         /* 标签页导航 */
         .tabs {
             display: flex;
-            background-color: white;
-            border-bottom: 1px solid var(--border-color);
-            overflow-x: auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
         
         .tab {
-            padding: 15px 25px;
+            flex: 1;
+            text-align: center;
+            padding: 15px 5px;
             cursor: pointer;
             font-weight: 600;
-            color: var(--dark-color);
-            white-space: nowrap;
+            color: #003366;
             border-bottom: 3px solid transparent;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
         
         .tab:hover {
-            background-color: rgba(0, 86, 166, 0.05);
-            color: var(--primary-color);
+            background-color: rgba(0, 51, 102, 0.05);
         }
         
         .tab.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
-            background-color: rgba(0, 86, 166, 0.05);
+            background-color: rgba(0, 51, 102, 0.1);
+            border-bottom: 3px solid #003366;
         }
         
-        /* 内容区域 */
-        .content {
-            min-height: 600px;
-            background-color: white;
-            padding: 30px;
-            margin-top: 20px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-        }
-        
+        /* 标签内容区域 */
         .tab-content {
             display: none;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            min-height: 500px;
         }
         
         .tab-content.active {
             display: block;
         }
         
-        .page-title {
-            font-size: 24px;
+        .tab-content h2 {
+            color: #003366;
             margin-bottom: 20px;
-            color: var(--primary-color);
             padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 2px solid #f0f0f0;
         }
         
         /* 图片显示区域 */
         .images-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
             margin-bottom: 30px;
-            justify-content: center;
         }
         
         .image-item {
-            width: 300px;
+            background-color: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            background-color: white;
-            transition: transform 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
         .image-item:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
         
-        .image-preview {
+        .image-item img {
             width: 100%;
             height: 200px;
             object-fit: cover;
             cursor: pointer;
+            display: block;
         }
         
         .image-info {
@@ -180,68 +162,63 @@
         .image-title {
             font-weight: 600;
             margin-bottom: 5px;
-            color: var(--dark-color);
+            color: #003366;
         }
         
         .image-date {
             font-size: 13px;
-            color: #666;
-        }
-        
-        .no-data {
-            text-align: center;
-            padding: 50px 20px;
-            color: #888;
-            font-size: 16px;
-        }
-        
-        .no-data i {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #ccc;
+            color: #777;
         }
         
         /* 按钮样式 */
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.3s;
-        }
-        
-        .btn:hover {
-            background-color: #004085;
-        }
-        
-        .btn-secondary {
-            background-color: #6c757d;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #5a6268;
-        }
-        
-        .btn-danger {
-            background-color: var(--secondary-color);
-        }
-        
-        .btn-danger:hover {
-            background-color: #c82333;
-        }
-        
         .actions {
             display: flex;
-            gap: 10px;
             justify-content: center;
+            gap: 15px;
             margin-top: 20px;
         }
         
-        /* 模态框样式 */
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #003366;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #002244;
+        }
+        
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .btn-danger {
+            background-color: #d9534f;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c9302c;
+        }
+        
+        /* 弹窗样式 */
         .modal {
             display: none;
             position: fixed;
@@ -261,134 +238,107 @@
         
         .modal-content {
             background-color: white;
-            border-radius: 8px;
+            border-radius: 10px;
             width: 90%;
             max-width: 500px;
             max-height: 90vh;
             overflow-y: auto;
             padding: 30px;
-            position: relative;
-        }
-        
-        .modal-lg {
-            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
         
         .modal-header {
-            font-size: 20px;
-            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
-            color: var(--primary-color);
+        }
+        
+        .modal-title {
+            color: #003366;
+            font-size: 22px;
         }
         
         .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
+            background: none;
+            border: none;
             font-size: 24px;
             cursor: pointer;
-            color: #888;
+            color: #777;
         }
         
-        .close-modal:hover {
-            color: var(--dark-color);
-        }
-        
-        /* 表单样式 */
         .form-group {
             margin-bottom: 20px;
         }
         
-        .form-label {
+        .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
+            color: #003366;
         }
         
         .form-control {
             width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
             font-size: 16px;
         }
         
         .form-control:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: #003366;
         }
         
         .password-prompt {
             text-align: center;
+            padding: 20px 0;
         }
         
-        .password-prompt i {
-            font-size: 40px;
-            color: var(--primary-color);
+        .password-prompt h3 {
             margin-bottom: 15px;
+            color: #003366;
         }
         
-        .image-upload-area {
-            border: 2px dashed var(--border-color);
+        /* 设置页面样式 */
+        .settings-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .setting-section {
+            background-color: white;
+            padding: 25px;
             border-radius: 8px;
-            padding: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .setting-section h3 {
+            color: #003366;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .current-image {
             text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .current-image img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: border-color 0.3s;
+            border: 1px solid #ddd;
         }
         
-        .image-upload-area:hover {
-            border-color: var(--primary-color);
-        }
-        
-        .image-upload-area i {
-            font-size: 40px;
-            color: #888;
-            margin-bottom: 15px;
-        }
-        
-        .upload-instruction {
-            color: #666;
-            font-size: 14px;
+        .current-image p {
             margin-top: 10px;
-        }
-        
-        /* 图片预览 */
-        .image-preview-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .preview-item {
-            width: 100px;
-            height: 100px;
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .preview-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .remove-preview {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: rgba(255, 0, 0, 0.7);
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            cursor: pointer;
+            color: #777;
+            font-size: 14px;
         }
         
         /* 图片放大查看 */
@@ -410,1189 +360,1025 @@
             display: flex;
         }
         
-        .viewer-image {
+        .viewer-content {
             max-width: 90%;
             max-height: 90%;
-            object-fit: contain;
+        }
+        
+        .viewer-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 5px;
         }
         
         .close-viewer {
             position: absolute;
             top: 20px;
-            right: 20px;
+            right: 30px;
+            background: none;
+            border: none;
             color: white;
             font-size: 30px;
             cursor: pointer;
         }
         
-        /* 设置页面样式 */
-        .settings-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-        
-        .setting-section {
-            flex: 1;
-            min-width: 300px;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-        }
-        
-        .setting-title {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .current-image {
+        /* 空状态提示 */
+        .empty-state {
             text-align: center;
+            padding: 50px 20px;
+            color: #777;
+        }
+        
+        .empty-state i {
+            font-size: 60px;
             margin-bottom: 20px;
+            color: #ccc;
         }
         
-        .current-image img {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        
-        .current-image-placeholder {
-            width: 100%;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed var(--border-color);
-            border-radius: 8px;
-            color: #888;
-        }
-        
-        /* 页脚 */
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            color: #666;
-            font-size: 14px;
-            margin-top: 40px;
-            border-top: 1px solid var(--border-color);
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: #003366;
         }
         
         /* 响应式设计 */
         @media (max-width: 768px) {
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
             .tab {
-                padding: 12px 15px;
+                flex: 0 0 50%;
+                padding: 12px 5px;
                 font-size: 14px;
             }
             
-            .content {
-                padding: 20px 15px;
-            }
-            
-            .image-item {
-                width: 100%;
+            .images-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
             }
             
             .settings-container {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
                 flex-direction: column;
+                gap: 15px;
+                text-align: center;
             }
         }
         
-        /* 管理操作按钮 */
-        .manage-actions {
-            display: flex;
-            gap: 5px;
-            margin-top: 10px;
-        }
-        
-        .manage-btn {
-            flex: 1;
-            padding: 8px 5px;
-            font-size: 12px;
-        }
-        
-        /* 上传状态提示 */
-        .status-message {
-            padding: 10px;
-            border-radius: 4px;
-            margin: 10px 0;
-            text-align: center;
-            display: none;
-        }
-        
-        .status-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .status-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+        @media (max-width: 480px) {
+            .tab {
+                flex: 0 0 100%;
+            }
+            
+            .images-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 背景图片 -->
-    <div id="background-image"></div>
-    
     <div class="container">
-        <!-- 网站头部 -->
+        <!-- 头部 -->
         <header>
-            <div class="header-content">
-                <div class="logo" id="logo-container">
-                    <div class="logo-placeholder">点击上传LOGO<br>75×75</div>
-                </div>
-                <div>
-                    <h1 class="site-title">里昂邮政集团</h1>
-                    <p class="site-subtitle">LYON POSTAL GROUP - 连接世界的邮递服务</p>
+            <div class="logo-container">
+                <img id="logo-img" src="" alt="里昂邮政集团LOGO" class="logo-img">
+                <div class="logo-text">
+                    <h1>里昂邮政集团</h1>
+                    <p>Lyon Postal Group - 连接你我，传递价值</p>
                 </div>
             </div>
-            
-            <!-- 标签页导航 -->
-            <div class="tabs">
-                <div class="tab active" data-tab="announcement">公告</div>
-                <div class="tab" data-tab="business">业务介绍</div>
-                <div class="tab" data-tab="branches">网点清单</div>
-                <div class="tab" data-tab="fees">资费清单</div>
-                <div class="tab" data-tab="postage">邮资清单</div>
-                <div class="tab" data-tab="products">邮品清单</div>
-                <div class="tab" data-tab="settings">设置</div>
-                <div class="tab" data-tab="poke">戳戳我</div>
+            <div class="current-date" id="current-date">
+                <!-- 当前日期和时间将通过JavaScript动态生成 -->
             </div>
         </header>
         
-        <!-- 主内容区域 -->
-        <main>
-            <!-- 公告标签页 -->
-            <section id="announcement" class="tab-content active content">
-                <h2 class="page-title">集团公告</h2>
-                <div class="images-container" id="announcement-images">
-                    <!-- 图片将通过JavaScript动态加载 -->
-                </div>
-                <div class="actions">
-                    <button class="btn" id="add-announcement-btn">上传新公告</button>
-                </div>
-            </section>
-            
-            <!-- 业务介绍标签页 -->
-            <section id="business" class="tab-content content">
-                <h2 class="page-title">业务介绍</h2>
-                <div class="images-container" id="business-images">
-                    <!-- 图片将通过JavaScript动态加载 -->
-                </div>
-                <div class="actions">
-                    <button class="btn" id="add-business-btn">上传业务介绍</button>
-                </div>
-            </section>
-            
-            <!-- 网点清单标签页 -->
-            <section id="branches" class="tab-content content">
-                <h2 class="page-title">网点清单</h2>
-                <div class="images-container" id="branches-images">
-                    <!-- 图片将通过JavaScript动态加载 -->
-                </div>
-                <div class="actions">
-                    <button class="btn" id="add-branches-btn">上传网点清单</button>
-                </div>
-            </section>
-            
-            <!-- 资费清单标签页 -->
-            <section id="fees" class="tab-content content">
-                <h2 class="page-title">资费清单</h2>
-                <div class="images-container" id="fees-images">
-                    <!-- 图片将通过JavaScript动态加载 -->
-                </div>
-                <div class="actions">
-                    <button class="btn" id="add-fees-btn">上传资费清单</button>
-                </div>
-            </section>
-            
-            <!-- 邮资清单标签页 -->
-            <section id="postage" class="tab-content content">
-                <h2 class="page-title">邮资清单</h2>
-                <div class="images-container" id="postage-images">
-                    <!-- 图片将通过JavaScript动态加载 -->
-                </div>
-                <div class="actions">
-                    <button class="btn" id="add-postage-btn">上传邮资清单</button>
-                </div>
-            </section>
-            
-            <!-- 邮品清单标签页 -->
-            <section id="products" class="tab-content content">
-                <h2 class="page-title">邮品清单</h2>
-                <div class="images-container" id="products-images">
-                    <!-- 图片将通过JavaScript动态加载 -->
-                </div>
-                <div class="actions">
-                    <button class="btn" id="add-products-btn">上传邮品清单</button>
-                </div>
-            </section>
-            
-            <!-- 设置标签页 -->
-            <section id="settings" class="tab-content content">
-                <h2 class="page-title">系统设置</h2>
-                <div class="settings-container">
-                    <div class="setting-section">
-                        <h3 class="setting-title">LOGO设置</h3>
-                        <div class="current-image" id="logo-preview">
-                            <div class="current-image-placeholder">
-                                <div>当前LOGO<br>75×75像素</div>
-                            </div>
-                        </div>
-                        <div class="manage-actions">
-                            <button class="btn" id="upload-logo-btn">上传LOGO</button>
-                            <button class="btn btn-danger" id="delete-logo-btn">删除LOGO</button>
-                        </div>
-                    </div>
-                    
-                    <div class="setting-section">
-                        <h3 class="setting-title">背景设置</h3>
-                        <div class="current-image" id="background-preview">
-                            <div class="current-image-placeholder">
-                                <div>当前背景</div>
-                            </div>
-                        </div>
-                        <div class="manage-actions">
-                            <button class="btn" id="upload-bg-btn">上传背景</button>
-                            <button class="btn btn-danger" id="delete-bg-btn">删除背景</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- 戳戳我标签页 -->
-            <section id="poke" class="tab-content content">
-                <h2 class="page-title">戳戳我</h2>
-                <div class="images-container" id="poke-images">
-                    <!-- 图片将通过JavaScript动态加载 -->
-                </div>
-                <div class="actions">
-                    <button class="btn" id="add-poke-btn">上传图片</button>
-                </div>
-            </section>
-        </main>
+        <!-- 标签页导航 -->
+        <div class="tabs">
+            <div class="tab active" data-tab="announcement">公告</div>
+            <div class="tab" data-tab="business">业务介绍</div>
+            <div class="tab" data-tab="branches">网点清单</div>
+            <div class="tab" data-tab="pricing">资费清单</div>
+            <div class="tab" data-tab="postage">邮资清单</div>
+            <div class="tab" data-tab="products">邮品清单</div>
+            <div class="tab" data-tab="settings">设置</div>
+            <div class="tab" data-tab="stamp">戳戳我</div>
+        </div>
         
-        <!-- 页脚 -->
-        <footer>
-            <p>© 2023 里昂邮政集团 版权所有 | 服务热线: 400-123-4567 | 邮箱: contact@lyonpostal.com</p>
-        </footer>
-    </div>
-    
-    <!-- 密码验证模态框 -->
-    <div id="password-modal" class="modal">
-        <div class="modal-content">
-            <div class="close-modal">&times;</div>
-            <div class="modal-header">管理验证</div>
-            <div class="password-prompt">
-                <i class="fas fa-lock"></i>
-                <p>请输入管理密码以继续操作</p>
-                <div class="form-group">
-                    <input type="password" id="password-input" class="form-control" placeholder="请输入管理密码">
+        <!-- 公告标签页 -->
+        <div id="announcement" class="tab-content active">
+            <h2><i class="fas fa-bullhorn"></i> 公告</h2>
+            <div id="announcement-images" class="images-container">
+                <!-- 公告图片将通过JavaScript动态生成 -->
+                <div class="empty-state">
+                    <i class="far fa-newspaper"></i>
+                    <h3>暂无公告</h3>
+                    <p>点击下方按钮上传公告图片</p>
                 </div>
-                <div class="status-message" id="password-status"></div>
-                <button class="btn" id="password-submit">验证</button>
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" id="add-announcement-btn">
+                    <i class="fas fa-upload"></i> 上传公告
+                </button>
+            </div>
+        </div>
+        
+        <!-- 业务介绍标签页 -->
+        <div id="business" class="tab-content">
+            <h2><i class="fas fa-briefcase"></i> 业务介绍</h2>
+            <div id="business-images" class="images-container">
+                <div class="empty-state">
+                    <i class="fas fa-project-diagram"></i>
+                    <h3>暂无业务介绍</h3>
+                    <p>点击下方按钮上传业务介绍图片</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" id="add-business-btn">
+                    <i class="fas fa-upload"></i> 上传业务介绍
+                </button>
+            </div>
+        </div>
+        
+        <!-- 网点清单标签页 -->
+        <div id="branches" class="tab-content">
+            <h2><i class="fas fa-map-marker-alt"></i> 网点清单</h2>
+            <div id="branches-images" class="images-container">
+                <div class="empty-state">
+                    <i class="fas fa-store"></i>
+                    <h3>暂无网点信息</h3>
+                    <p>点击下方按钮上传网点清单图片</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" id="add-branches-btn">
+                    <i class="fas fa-upload"></i> 上传网点清单
+                </button>
+            </div>
+        </div>
+        
+        <!-- 资费清单标签页 -->
+        <div id="pricing" class="tab-content">
+            <h2><i class="fas fa-money-bill-wave"></i> 资费清单</h2>
+            <div id="pricing-images" class="images-container">
+                <div class="empty-state">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <h3>暂无资费信息</h3>
+                    <p>点击下方按钮上传资费清单图片</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" id="add-pricing-btn">
+                    <i class="fas fa-upload"></i> 上传资费清单
+                </button>
+            </div>
+        </div>
+        
+        <!-- 邮资清单标签页 -->
+        <div id="postage" class="tab-content">
+            <h2><i class="fas fa-stamp"></i> 邮资清单</h2>
+            <div id="postage-images" class="images-container">
+                <div class="empty-state">
+                    <i class="fas fa-envelope"></i>
+                    <h3>暂无邮资信息</h3>
+                    <p>点击下方按钮上传邮资清单图片</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" id="add-postage-btn">
+                    <i class="fas fa-upload"></i> 上传邮资清单
+                </button>
+            </div>
+        </div>
+        
+        <!-- 邮品清单标签页 -->
+        <div id="products" class="tab-content">
+            <h2><i class="fas fa-box-open"></i> 邮品清单</h2>
+            <div id="products-images" class="images-container">
+                <div class="empty-state">
+                    <i class="fas fa-gift"></i>
+                    <h3>暂无邮品信息</h3>
+                    <p>点击下方按钮上传邮品清单图片</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" id="add-products-btn">
+                    <i class="fas fa-upload"></i> 上传邮品清单
+                </button>
+            </div>
+        </div>
+        
+        <!-- 设置标签页 -->
+        <div id="settings" class="tab-content">
+            <h2><i class="fas fa-cog"></i> 设置</h2>
+            <div class="settings-container">
+                <div class="setting-section">
+                    <h3>LOGO设置</h3>
+                    <div class="current-image">
+                        <img id="current-logo" src="" alt="当前LOGO">
+                        <p>当前LOGO，尺寸：75×75px</p>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary" id="upload-logo-btn">
+                            <i class="fas fa-upload"></i> 上传LOGO
+                        </button>
+                        <button class="btn btn-danger" id="delete-logo-btn">
+                            <i class="fas fa-trash"></i> 删除LOGO
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="setting-section">
+                    <h3>背景设置</h3>
+                    <div class="current-image">
+                        <img id="current-background" src="" alt="当前背景">
+                        <p>当前背景图片</p>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary" id="upload-background-btn">
+                            <i class="fas fa-upload"></i> 上传背景
+                        </button>
+                        <button class="btn btn-danger" id="delete-background-btn">
+                            <i class="fas fa-trash"></i> 删除背景
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 戳戳我标签页 -->
+        <div id="stamp" class="tab-content">
+            <h2><i class="fas fa-heart"></i> 戳戳我</h2>
+            <div id="stamp-images" class="images-container">
+                <div class="empty-state">
+                    <i class="fas fa-smile-wink"></i>
+                    <h3>暂无戳戳我内容</h3>
+                    <p>点击下方按钮上传图片</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" id="add-stamp-btn">
+                    <i class="fas fa-upload"></i> 上传图片
+                </button>
             </div>
         </div>
     </div>
     
-    <!-- 上传图片模态框 -->
-    <div id="upload-modal" class="modal">
+    <!-- 图片查看器 -->
+    <div class="image-viewer" id="image-viewer">
+        <button class="close-viewer" id="close-viewer">&times;</button>
+        <div class="viewer-content">
+            <img id="viewed-image" src="" alt="查看的图片">
+        </div>
+    </div>
+    
+    <!-- 密码验证弹窗 -->
+    <div class="modal" id="password-modal">
         <div class="modal-content">
-            <div class="close-modal">&times;</div>
-            <div class="modal-header" id="upload-title">上传图片</div>
+            <div class="modal-header">
+                <h3 class="modal-title">管理密码验证</h3>
+                <button class="close-modal" id="close-password-modal">&times;</button>
+            </div>
+            <div class="password-prompt">
+                <h3>请输入管理密码</h3>
+                <div class="form-group">
+                    <input type="password" id="password-input" class="form-control" placeholder="请输入密码">
+                </div>
+                <p id="password-error" style="color: #d9534f; margin-top: 10px; display: none;">密码错误，请重试</p>
+                <div class="actions">
+                    <button class="btn btn-primary" id="submit-password">确认</button>
+                    <button class="btn btn-secondary" id="cancel-password">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 上传弹窗 -->
+    <div class="modal" id="upload-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="upload-title">上传图片</h3>
+                <button class="close-modal" id="close-upload-modal">&times;</button>
+            </div>
             <form id="upload-form">
                 <div class="form-group">
-                    <label class="form-label" id="title-label">标题 (仅公告需要)</label>
+                    <label for="image-title">图片标题 (仅公告需要)</label>
                     <input type="text" id="image-title" class="form-control" placeholder="请输入图片标题">
                 </div>
-                
                 <div class="form-group">
-                    <label class="form-label">上传图片 (最多5张)</label>
-                    <div class="image-upload-area" id="image-drop-area">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>点击或拖拽图片到此处上传</p>
-                        <p class="upload-instruction">支持 JPG, JPEG, PNG 格式</p>
-                        <input type="file" id="image-upload" multiple accept=".jpg,.jpeg,.png" style="display: none;">
-                    </div>
-                    <div class="image-preview-container" id="image-preview-container"></div>
+                    <label for="image-upload">选择图片 (最多5张，支持JPG、JPEG、PNG格式)</label>
+                    <input type="file" id="image-upload" class="form-control" accept=".jpg,.jpeg,.png" multiple>
+                    <p id="image-count" style="margin-top: 8px; color: #777; font-size: 14px;">最多可选择5张图片</p>
                 </div>
-                
-                <div class="form-group">
-                    <label class="form-label">上传日期</label>
-                    <input type="text" id="upload-date" class="form-control" readonly>
-                </div>
-                
-                <div class="status-message" id="upload-status"></div>
-                
                 <div class="actions">
-                    <button type="button" class="btn" id="submit-upload">提交</button>
+                    <button type="submit" class="btn btn-primary">上传</button>
                     <button type="button" class="btn btn-secondary" id="cancel-upload">取消</button>
                 </div>
             </form>
         </div>
     </div>
     
-    <!-- 图片查看器 -->
-    <div id="image-viewer" class="image-viewer">
-        <div class="close-viewer">&times;</div>
-        <img class="viewer-image" src="" alt="查看大图">
+    <!-- 修改/删除弹窗 -->
+    <div class="modal" id="edit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">管理项目</h3>
+                <button class="close-modal" id="close-edit-modal">&times;</button>
+            </div>
+            <div id="edit-content">
+                <!-- 修改/删除内容将动态生成 -->
+            </div>
+        </div>
     </div>
-    
+
     <script>
-        // 全局变量
-        const DEFAULT_PASSWORD = "740302";
-        let currentTab = "announcement";
-        let currentCategory = "";
-        let currentEditId = null;
-        let uploadedImages = [];
-        let isEditing = false;
+        // 密码常量
+        const ADMIN_PASSWORD = "740302";
         
-        // 数据存储结构
-        const storageKeys = {
-            announcement: 'lyonPost_announcement',
-            business: 'lyonPost_business',
-            branches: 'lyonPost_branches',
-            fees: 'lyonPost_fees',
-            postage: 'lyonPost_postage',
-            products: 'lyonPost_products',
-            poke: 'lyonPost_poke',
-            logo: 'lyonPost_logo',
-            background: 'lyonPost_background',
-            activeTab: 'lyonPost_activeTab'
+        // 当前状态变量
+        let currentTab = "announcement";
+        let currentUploadType = "";
+        let editingItemId = null;
+        let passwordVerified = false;
+        
+        // 从localStorage加载数据
+        let appData = {
+            announcement: [],  // {id, image, title, date}
+            business: [],      // {id, image, date}
+            branches: [],      // {id, image, date}
+            pricing: [],       // {id, image, date}
+            postage: [],       // {id, image, date}
+            products: [],      // {id, image, date}
+            stamp: [],         // {id, image, date}
+            logo: "",
+            background: ""
         };
         
-        // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            // 从本地存储恢复上次活动的标签页
-            const savedTab = localStorage.getItem(storageKeys.activeTab);
+        // 初始化函数
+        function initApp() {
+            // 从localStorage加载数据
+            loadData();
+            
+            // 设置当前日期时间
+            updateCurrentDateTime();
+            setInterval(updateCurrentDateTime, 1000);
+            
+            // 恢复上次的标签页
+            const savedTab = localStorage.getItem("lyonPostal_currentTab");
             if (savedTab) {
                 switchTab(savedTab);
             }
             
-            // 加载所有数据
-            loadAllData();
-            
             // 设置事件监听器
             setupEventListeners();
-        });
-        
-        // 切换标签页
-        function switchTab(tabId) {
-            // 更新当前标签页
-            currentTab = tabId;
             
-            // 保存当前标签页到本地存储
-            localStorage.setItem(storageKeys.activeTab, tabId);
+            // 加载图片
+            renderAllImages();
             
-            // 更新标签页样式
-            document.querySelectorAll('.tab').forEach(tab => {
-                if (tab.dataset.tab === tabId) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-            
-            // 更新内容显示
-            document.querySelectorAll('.tab-content').forEach(content => {
-                if (content.id === tabId) {
-                    content.classList.add('active');
-                } else {
-                    content.classList.remove('active');
-                }
-            });
+            // 加载LOGO和背景
+            loadLogoAndBackground();
         }
         
-        // 加载所有数据
-        function loadAllData() {
-            // 加载LOGO
-            const logoData = localStorage.getItem(storageKeys.logo);
-            if (logoData) {
-                const logoObj = JSON.parse(logoData);
-                document.getElementById('logo-container').innerHTML = `<img src="${logoObj.image}" alt="LOGO" onclick="viewImage('${logoObj.image}')">`;
-                document.getElementById('logo-preview').innerHTML = `<img src="${logoObj.image}" alt="LOGO预览" onclick="viewImage('${logoObj.image}')">`;
+        // 加载数据
+        function loadData() {
+            const savedData = localStorage.getItem("lyonPostal_data");
+            if (savedData) {
+                appData = JSON.parse(savedData);
             }
-            
-            // 加载背景
-            const bgData = localStorage.getItem(storageKeys.background);
-            if (bgData) {
-                const bgObj = JSON.parse(bgData);
-                updateBackgroundImage(bgObj.image);
-                document.getElementById('background-preview').innerHTML = `<img src="${bgObj.image}" alt="背景预览" onclick="viewImage('${bgObj.image}')">`;
-            }
-            
-            // 加载各分类数据
-            const categories = ['announcement', 'business', 'branches', 'fees', 'postage', 'products', 'poke'];
-            categories.forEach(category => {
-                loadCategoryData(category);
-            });
         }
         
-        // 更新背景图片
-        function updateBackgroundImage(imageSrc) {
-            const bgDiv = document.getElementById('background-image');
-            bgDiv.style.backgroundImage = `url('${imageSrc}')`;
-            bgDiv.style.position = 'fixed';
-            bgDiv.style.top = '0';
-            bgDiv.style.left = '0';
-            bgDiv.style.width = '100%';
-            bgDiv.style.height = '100%';
-            bgDiv.style.backgroundSize = 'cover';
-            bgDiv.style.backgroundPosition = 'center';
-            bgDiv.style.zIndex = '-1';
-            bgDiv.style.opacity = '0.1';
+        // 保存数据
+        function saveData() {
+            localStorage.setItem("lyonPostal_data", JSON.stringify(appData));
         }
         
-        // 加载分类数据
-        function loadCategoryData(category) {
-            const container = document.getElementById(`${category}-images`);
-            const data = localStorage.getItem(storageKeys[category]);
+        // 更新当前日期时间
+        function updateCurrentDateTime() {
+            const now = new Date();
+            const dateElement = document.getElementById("current-date");
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
             
-            if (!data || data === '[]' || data === 'null') {
-                container.innerHTML = `
-                    <div class="no-data">
-                        <i class="fas fa-image"></i>
-                        <p>暂无数据，请点击下方按钮上传</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            try {
-                const items = JSON.parse(data);
-                if (!Array.isArray(items) || items.length === 0) {
-                    container.innerHTML = `
-                        <div class="no-data">
-                            <i class="fas fa-image"></i>
-                            <p>暂无数据，请点击下方按钮上传</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                let html = '';
-                
-                items.forEach((item) => {
-                    html += `
-                        <div class="image-item" data-id="${item.id}">
-                            <img class="image-preview" src="${item.image}" alt="${item.title || '图片'}" onclick="viewImage('${item.image}')">
-                            <div class="image-info">
-                                ${item.title ? `<div class="image-title">${item.title}</div>` : ''}
-                                <div class="image-date">${item.date}</div>
-                                <div class="manage-actions">
-                                    <button class="btn btn-secondary manage-btn" onclick="editItem('${category}', '${item.id}')">修改</button>
-                                    <button class="btn btn-danger manage-btn" onclick="deleteItem('${category}', '${item.id}')">删除</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                container.innerHTML = html;
-            } catch (e) {
-                console.error('加载数据错误:', e);
-                container.innerHTML = `
-                    <div class="no-data">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>数据加载错误，请重新上传</p>
-                    </div>
-                `;
-            }
+            dateElement.innerHTML = `
+                <div style="font-size: 18px; font-weight: 600;">${year}年${month}月${day}日</div>
+                <div style="font-size: 16px; margin-top: 5px;">${hours}:${minutes}:${seconds}</div>
+            `;
         }
         
         // 设置事件监听器
         function setupEventListeners() {
             // 标签页切换
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabId = this.dataset.tab;
+            document.querySelectorAll(".tab").forEach(tab => {
+                tab.addEventListener("click", () => {
+                    const tabId = tab.getAttribute("data-tab");
                     switchTab(tabId);
                 });
             });
             
-            // 密码模态框
-            const passwordModal = document.getElementById('password-modal');
-            const passwordInput = document.getElementById('password-input');
-            const passwordSubmit = document.getElementById('password-submit');
-            const closeModalBtns = document.querySelectorAll('.close-modal');
+            // 图片上传按钮
+            document.getElementById("add-announcement-btn").addEventListener("click", () => openUploadModal("announcement"));
+            document.getElementById("add-business-btn").addEventListener("click", () => openUploadModal("business"));
+            document.getElementById("add-branches-btn").addEventListener("click", () => openUploadModal("branches"));
+            document.getElementById("add-pricing-btn").addEventListener("click", () => openUploadModal("pricing"));
+            document.getElementById("add-postage-btn").addEventListener("click", () => openUploadModal("postage"));
+            document.getElementById("add-products-btn").addEventListener("click", () => openUploadModal("products"));
+            document.getElementById("add-stamp-btn").addEventListener("click", () => openUploadModal("stamp"));
             
-            // 打开上传模态框的按钮
-            document.getElementById('add-announcement-btn').addEventListener('click', function() {
-                openUploadModal('announcement');
-            });
+            // 设置页面上传按钮
+            document.getElementById("upload-logo-btn").addEventListener("click", () => openLogoUpload());
+            document.getElementById("upload-background-btn").addEventListener("click", () => openBackgroundUpload());
+            document.getElementById("delete-logo-btn").addEventListener("click", () => deleteLogo());
+            document.getElementById("delete-background-btn").addEventListener("click", () => deleteBackground());
             
-            document.getElementById('add-business-btn').addEventListener('click', function() {
-                openUploadModal('business');
-            });
-            
-            document.getElementById('add-branches-btn').addEventListener('click', function() {
-                openUploadModal('branches');
-            });
-            
-            document.getElementById('add-fees-btn').addEventListener('click', function() {
-                openUploadModal('fees');
-            });
-            
-            document.getElementById('add-postage-btn').addEventListener('click', function() {
-                openUploadModal('postage');
-            });
-            
-            document.getElementById('add-products-btn').addEventListener('click', function() {
-                openUploadModal('products');
-            });
-            
-            document.getElementById('add-poke-btn').addEventListener('click', function() {
-                openUploadModal('poke');
-            });
-            
-            // 设置页面的上传按钮
-            document.getElementById('upload-logo-btn').addEventListener('click', function() {
-                openUploadModal('logo');
-            });
-            
-            document.getElementById('upload-bg-btn').addEventListener('click', function() {
-                openUploadModal('background');
-            });
-            
-            // 设置页面的删除按钮
-            document.getElementById('delete-logo-btn').addEventListener('click', function() {
-                if (confirm('确定要删除LOGO吗？')) {
-                    openPasswordModalForDelete('logo');
+            // 密码验证
+            document.getElementById("submit-password").addEventListener("click", verifyPassword);
+            document.getElementById("cancel-password").addEventListener("click", closePasswordModal);
+            document.getElementById("close-password-modal").addEventListener("click", closePasswordModal);
+            document.getElementById("password-input").addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    verifyPassword();
                 }
             });
             
-            document.getElementById('delete-bg-btn').addEventListener('click', function() {
-                if (confirm('确定要删除背景图片吗？')) {
-                    openPasswordModalForDelete('background');
-                }
-            });
-            
-            // 密码提交
-            passwordSubmit.addEventListener('click', function() {
-                const password = passwordInput.value;
-                const status = document.getElementById('password-status');
-                
-                if (password === DEFAULT_PASSWORD) {
-                    status.textContent = "验证成功！";
-                    status.className = "status-message status-success";
-                    status.style.display = "block";
-                    
-                    // 关闭密码模态框
-                    setTimeout(() => {
-                        passwordModal.classList.remove('active');
-                        passwordInput.value = '';
-                        status.style.display = "none";
-                        
-                        // 根据当前类别打开相应的上传模态框
-                        if (currentCategory === 'logo' || currentCategory === 'background') {
-                            openSettingUploadModal(currentCategory);
-                        } else {
-                            openUploadFormModal(currentCategory);
-                        }
-                    }, 1000);
-                } else {
-                    status.textContent = "密码错误，请重试！";
-                    status.className = "status-message status-error";
-                    status.style.display = "block";
-                    passwordInput.value = '';
-                }
-            });
-            
-            // 关闭模态框
-            closeModalBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const modal = this.closest('.modal');
-                    modal.classList.remove('active');
-                    
-                    // 重置表单
-                    if (modal.id === 'upload-modal') {
-                        resetUploadForm();
-                    }
-                    
-                    if (modal.id === 'password-modal') {
-                        document.getElementById('password-input').value = '';
-                        document.getElementById('password-status').style.display = "none";
-                    }
-                });
-            });
-            
-            // 点击模态框外部关闭
-            window.addEventListener('click', function(event) {
-                if (event.target.classList.contains('modal')) {
-                    event.target.classList.remove('active');
-                    
-                    // 重置表单
-                    if (event.target.id === 'upload-modal') {
-                        resetUploadForm();
-                    }
-                    
-                    if (event.target.id === 'password-modal') {
-                        document.getElementById('password-input').value = '';
-                        document.getElementById('password-status').style.display = "none";
-                    }
-                }
-            });
-            
-            // 取消上传
-            document.getElementById('cancel-upload').addEventListener('click', function() {
-                document.getElementById('upload-modal').classList.remove('active');
-                resetUploadForm();
-            });
-            
-            // 提交上传
-            document.getElementById('submit-upload').addEventListener('click', function() {
-                saveUploadedData();
-            });
-            
-            // 图片上传
-            const imageUpload = document.getElementById('image-upload');
-            const imageDropArea = document.getElementById('image-drop-area');
-            
-            imageDropArea.addEventListener('click', function() {
-                imageUpload.click();
-            });
-            
-            imageUpload.addEventListener('change', function() {
-                handleImageUpload(this.files);
-            });
-            
-            // 拖放上传
-            imageDropArea.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                this.style.borderColor = '#0056a6';
-                this.style.backgroundColor = 'rgba(0, 86, 166, 0.05)';
-            });
-            
-            imageDropArea.addEventListener('dragleave', function() {
-                this.style.borderColor = '#ddd';
-                this.style.backgroundColor = '';
-            });
-            
-            imageDropArea.addEventListener('drop', function(e) {
-                e.preventDefault();
-                this.style.borderColor = '#ddd';
-                this.style.backgroundColor = '';
-                
-                if (e.dataTransfer.files.length) {
-                    handleImageUpload(e.dataTransfer.files);
-                }
-            });
-            
-            // 表单提交（防止默认提交行为）
-            document.getElementById('upload-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                saveUploadedData();
-            });
+            // 上传表单
+            document.getElementById("upload-form").addEventListener("submit", handleUpload);
+            document.getElementById("cancel-upload").addEventListener("click", closeUploadModal);
+            document.getElementById("close-upload-modal").addEventListener("click", closeUploadModal);
             
             // 图片查看器
-            document.querySelector('.close-viewer').addEventListener('click', function() {
-                document.getElementById('image-viewer').classList.remove('active');
+            document.getElementById("close-viewer").addEventListener("click", () => {
+                document.getElementById("image-viewer").classList.remove("active");
             });
             
-            document.getElementById('image-viewer').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                }
-            });
+            // 编辑弹窗关闭
+            document.getElementById("close-edit-modal").addEventListener("click", closeEditModal);
             
-            // 监听键盘事件，按Enter键提交密码
-            document.getElementById('password-input').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    document.getElementById('password-submit').click();
+            // 图片上传限制
+            document.getElementById("image-upload").addEventListener("change", function() {
+                const maxFiles = 5;
+                if (this.files.length > maxFiles) {
+                    alert(`最多只能上传${maxFiles}张图片`);
+                    this.value = "";
                 }
             });
         }
         
-        // 打开密码验证模态框（用于上传）
-        function openUploadModal(category) {
-            currentCategory = category;
-            isEditing = false;
-            currentEditId = null;
-            document.getElementById('password-modal').classList.add('active');
-            document.getElementById('password-input').focus();
+        // 切换标签页
+        function switchTab(tabId) {
+            // 更新标签样式
+            document.querySelectorAll(".tab").forEach(tab => {
+                tab.classList.remove("active");
+            });
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add("active");
+            
+            // 更新内容显示
+            document.querySelectorAll(".tab-content").forEach(content => {
+                content.classList.remove("active");
+            });
+            document.getElementById(tabId).classList.add("active");
+            
+            // 保存当前标签页
+            currentTab = tabId;
+            localStorage.setItem("lyonPostal_currentTab", tabId);
         }
         
-        // 打开密码验证模态框（用于删除设置）
-        function openPasswordModalForDelete(type) {
-            currentCategory = type;
-            isEditing = false;
-            document.getElementById('password-modal').classList.add('active');
-            document.getElementById('password-input').focus();
+        // 打开上传弹窗
+        function openUploadModal(type) {
+            currentUploadType = type;
             
-            // 临时修改密码提交处理函数
-            const passwordSubmit = document.getElementById('password-submit');
-            const originalClickHandler = passwordSubmit.onclick;
+            // 设置弹窗标题
+            const titles = {
+                announcement: "上传公告",
+                business: "上传业务介绍",
+                branches: "上传网点清单",
+                pricing: "上传资费清单",
+                postage: "上传邮资清单",
+                products: "上传邮品清单",
+                stamp: "上传戳戳我图片"
+            };
             
-            passwordSubmit.onclick = function() {
-                const password = document.getElementById('password-input').value;
-                const status = document.getElementById('password-status');
+            document.getElementById("upload-title").textContent = titles[type] || "上传图片";
+            
+            // 如果是公告，显示标题输入框，否则隐藏
+            const titleInput = document.getElementById("image-title").parentElement;
+            titleInput.style.display = type === "announcement" ? "block" : "none";
+            
+            // 重置表单
+            document.getElementById("upload-form").reset();
+            
+            // 显示密码弹窗
+            openPasswordModal();
+        }
+        
+        // 打开LOGO上传
+        function openLogoUpload() {
+            openPasswordModal("logo");
+        }
+        
+        // 打开背景上传
+        function openBackgroundUpload() {
+            openPasswordModal("background");
+        }
+        
+        // 打开密码弹窗
+        function openPasswordModal(type) {
+            if (type) {
+                currentUploadType = type;
+            }
+            
+            document.getElementById("password-modal").classList.add("active");
+            document.getElementById("password-input").focus();
+            document.getElementById("password-error").style.display = "none";
+            passwordVerified = false;
+        }
+        
+        // 关闭密码弹窗
+        function closePasswordModal() {
+            document.getElementById("password-modal").classList.remove("active");
+            document.getElementById("password-input").value = "";
+        }
+        
+        // 验证密码
+        function verifyPassword() {
+            const password = document.getElementById("password-input").value;
+            const errorElement = document.getElementById("password-error");
+            
+            if (password === ADMIN_PASSWORD) {
+                passwordVerified = true;
+                closePasswordModal();
                 
-                if (password === DEFAULT_PASSWORD) {
-                    status.textContent = "验证成功！";
-                    status.className = "status-message status-success";
-                    status.style.display = "block";
-                    
-                    setTimeout(() => {
-                        document.getElementById('password-modal').classList.remove('active');
-                        document.getElementById('password-input').value = '';
-                        status.style.display = "none";
-                        
-                        // 执行删除操作
-                        deleteSettingItem(type);
-                        
-                        // 恢复原始处理函数
-                        passwordSubmit.onclick = originalClickHandler;
-                    }, 1000);
+                // 根据类型打开相应弹窗
+                if (["logo", "background"].includes(currentUploadType)) {
+                    openImageUploadForSetting();
                 } else {
-                    status.textContent = "密码错误，请重试！";
-                    status.className = "status-message status-error";
-                    status.style.display = "block";
-                    document.getElementById('password-input').value = '';
+                    document.getElementById("upload-modal").classList.add("active");
                 }
-            };
-        }
-        
-        // 打开上传表单模态框
-        function openUploadFormModal(category) {
-            const modal = document.getElementById('upload-modal');
-            const title = document.getElementById('upload-title');
-            const titleLabel = document.getElementById('title-label');
-            const titleInput = document.getElementById('image-title');
-            
-            // 设置模态框标题
-            const categoryTitles = {
-                announcement: isEditing ? '修改公告' : '上传公告',
-                business: isEditing ? '修改业务介绍' : '上传业务介绍',
-                branches: isEditing ? '修改网点清单' : '上传网点清单',
-                fees: isEditing ? '修改资费清单' : '上传资费清单',
-                postage: isEditing ? '修改邮资清单' : '上传邮资清单',
-                products: isEditing ? '修改邮品清单' : '上传邮品清单',
-                poke: isEditing ? '修改戳戳我图片' : '上传戳戳我图片'
-            };
-            
-            title.textContent = categoryTitles[category] || '上传图片';
-            
-            // 只有公告需要标题
-            if (category === 'announcement') {
-                titleLabel.style.display = 'block';
-                titleInput.style.display = 'block';
             } else {
-                titleLabel.style.display = 'none';
-                titleInput.style.display = 'none';
+                errorElement.style.display = "block";
+                document.getElementById("password-input").value = "";
+                document.getElementById("password-input").focus();
             }
-            
-            // 设置当前日期
-            const now = new Date();
-            const dateString = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-            document.getElementById('upload-date').value = dateString;
-            
-            // 显示模态框
-            modal.classList.add('active');
-            
-            // 重置已上传的图片
-            uploadedImages = [];
-            document.getElementById('image-preview-container').innerHTML = '';
         }
         
-        // 打开设置上传模态框
-        function openSettingUploadModal(type) {
-            const modal = document.getElementById('upload-modal');
-            const title = document.getElementById('upload-title');
-            const titleLabel = document.getElementById('title-label');
-            const titleInput = document.getElementById('image-title');
-            const dateField = document.getElementById('upload-date').parentElement;
-            
-            if (type === 'logo') {
-                title.textContent = '上传LOGO';
-                titleLabel.style.display = 'none';
-                titleInput.style.display = 'none';
-                dateField.style.display = 'none';
-            } else if (type === 'background') {
-                title.textContent = '上传背景';
-                titleLabel.style.display = 'none';
-                titleInput.style.display = 'none';
-                dateField.style.display = 'none';
+        // 打开设置图片上传
+        function openImageUploadForSetting() {
+            if (currentUploadType === "logo") {
+                const input = document.createElement("input");
+                input.type = "file";
+                input.accept = ".jpg,.jpeg,.png";
+                input.onchange = function(e) {
+                    if (e.target.files && e.target.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            appData.logo = event.target.result;
+                            saveData();
+                            loadLogoAndBackground();
+                            alert("LOGO上传成功！");
+                        };
+                        reader.readAsDataURL(e.target.files[0]);
+                    }
+                };
+                input.click();
+            } else if (currentUploadType === "background") {
+                const input = document.createElement("input");
+                input.type = "file";
+                input.accept = ".jpg,.jpeg,.png";
+                input.onchange = function(e) {
+                    if (e.target.files && e.target.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            appData.background = event.target.result;
+                            saveData();
+                            loadLogoAndBackground();
+                            alert("背景图片上传成功！");
+                        };
+                        reader.readAsDataURL(e.target.files[0]);
+                    }
+                };
+                input.click();
             }
-            
-            // 设置当前日期
-            const now = new Date();
-            const dateString = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-            document.getElementById('upload-date').value = dateString;
-            
-            // 显示模态框
-            modal.classList.add('active');
-            
-            // 重置已上传的图片
-            uploadedImages = [];
-            document.getElementById('image-preview-container').innerHTML = '';
         }
         
-        // 处理图片上传
-        function handleImageUpload(files) {
-            const maxImages = (currentCategory === 'logo' || currentCategory === 'background') ? 1 : 5;
-            const previewContainer = document.getElementById('image-preview-container');
+        // 关闭上传弹窗
+        function closeUploadModal() {
+            document.getElementById("upload-modal").classList.remove("active");
+        }
+        
+        // 处理上传
+        function handleUpload(e) {
+            e.preventDefault();
             
-            // 检查已上传图片数量
-            if (uploadedImages.length + files.length > maxImages) {
+            if (!passwordVerified) {
+                alert("请先验证密码");
+                return;
+            }
+            
+            const files = document.getElementById("image-upload").files;
+            const title = document.getElementById("image-title").value;
+            
+            if (files.length === 0) {
+                alert("请选择至少一张图片");
+                return;
+            }
+            
+            // 检查图片数量限制
+            const maxImages = 5;
+            if (files.length > maxImages) {
                 alert(`最多只能上传${maxImages}张图片`);
                 return;
             }
             
-            // 处理每个文件
+            // 检查当前类型已有图片数量
+            if (currentUploadType !== "stamp" && appData[currentUploadType].length + files.length > maxImages) {
+                alert(`该标签页最多只能有${maxImages}张图片，当前已有${appData[currentUploadType].length}张`);
+                return;
+            }
+            
+            // 上传图片
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-                
-                // 检查文件类型
-                if (!file.type.match('image/jpeg') && !file.type.match('image/jpg') && !file.type.match('image/png')) {
-                    alert('只支持JPG、JPEG、PNG格式的图片');
-                    continue;
-                }
-                
                 const reader = new FileReader();
                 
-                reader.onload = function(e) {
-                    const imageData = e.target.result;
-                    uploadedImages.push(imageData);
+                reader.onload = function(event) {
+                    const imageData = event.target.result;
+                    const now = new Date();
+                    const year = now.getFullYear();
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const hours = String(now.getHours()).padStart(2, '0');
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    const dateStr = `${year}年${month}月${day}日 ${hours}:${minutes}`;
                     
-                    // 创建预览
-                    const previewItem = document.createElement('div');
-                    previewItem.className = 'preview-item';
-                    previewItem.innerHTML = `
-                        <img src="${imageData}" alt="预览">
-                        <div class="remove-preview" onclick="removePreview(${uploadedImages.length - 1})">×</div>
-                    `;
+                    const item = {
+                        id: Date.now() + i, // 简单ID生成
+                        image: imageData,
+                        date: dateStr
+                    };
                     
-                    previewContainer.appendChild(previewItem);
+                    // 如果是公告，添加标题
+                    if (currentUploadType === "announcement") {
+                        item.title = title || `公告 ${appData[currentUploadType].length + 1}`;
+                    }
+                    
+                    appData[currentUploadType].push(item);
+                    saveData();
+                    
+                    // 如果是最后一张图片，重新渲染
+                    if (i === files.length - 1) {
+                        renderImages(currentUploadType);
+                        closeUploadModal();
+                        alert(`成功上传${files.length}张图片`);
+                    }
                 };
                 
                 reader.readAsDataURL(file);
             }
         }
         
-        // 移除预览图片
-        function removePreview(index) {
-            uploadedImages.splice(index, 1);
+        // 渲染所有图片
+        function renderAllImages() {
+            const types = ["announcement", "business", "branches", "pricing", "postage", "products", "stamp"];
+            types.forEach(type => renderImages(type));
+        }
+        
+        // 渲染特定类型的图片
+        function renderImages(type) {
+            const container = document.getElementById(`${type}-images`);
+            const items = appData[type];
             
-            // 重新渲染预览
-            const previewContainer = document.getElementById('image-preview-container');
-            previewContainer.innerHTML = '';
-            
-            uploadedImages.forEach((image, i) => {
-                const previewItem = document.createElement('div');
-                previewItem.className = 'preview-item';
-                previewItem.innerHTML = `
-                    <img src="${image}" alt="预览">
-                    <div class="remove-preview" onclick="removePreview(${i})">×</div>
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="${getIconForType(type)}"></i>
+                        <h3>${getEmptyTextForType(type)}</h3>
+                        <p>点击下方按钮上传图片</p>
+                    </div>
                 `;
-                
-                previewContainer.appendChild(previewItem);
+                return;
+            }
+            
+            let html = "";
+            
+            items.forEach(item => {
+                html += `
+                    <div class="image-item" data-id="${item.id}">
+                        <img src="${item.image}" alt="${item.title || '图片'}" onclick="viewImage('${item.image}')">
+                        <div class="image-info">
+                            ${type === "announcement" ? `<div class="image-title">${item.title || "公告"}</div>` : ""}
+                            <div class="image-date">${item.date}</div>
+                            <div class="actions" style="margin-top: 10px; justify-content: flex-start;">
+                                <button class="btn btn-secondary" onclick="editItem('${type}', ${item.id})" style="padding: 5px 10px; font-size: 12px;">
+                                    <i class="fas fa-edit"></i> 修改
+                                </button>
+                                <button class="btn btn-danger" onclick="deleteItem('${type}', ${item.id})" style="padding: 5px 10px; font-size: 12px; margin-left: 5px;">
+                                    <i class="fas fa-trash"></i> 删除
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
             });
+            
+            container.innerHTML = html;
         }
         
-        // 重置上传表单
-        function resetUploadForm() {
-            document.getElementById('image-title').value = '';
-            document.getElementById('upload-date').value = '';
-            uploadedImages = [];
-            document.getElementById('image-preview-container').innerHTML = '';
-            document.getElementById('upload-status').style.display = 'none';
-            currentEditId = null;
-            isEditing = false;
-            
-            // 重置表单字段显示
-            document.getElementById('title-label').style.display = 'block';
-            document.getElementById('image-title').style.display = 'block';
-            document.getElementById('upload-date').parentElement.style.display = 'block';
+        // 获取类型对应的图标
+        function getIconForType(type) {
+            const icons = {
+                announcement: "far fa-newspaper",
+                business: "fas fa-project-diagram",
+                branches: "fas fa-store",
+                pricing: "fas fa-file-invoice-dollar",
+                postage: "fas fa-envelope",
+                products: "fas fa-gift",
+                stamp: "fas fa-smile-wink"
+            };
+            return icons[type] || "far fa-image";
         }
         
-        // 保存上传的数据
-        function saveUploadedData() {
-            const status = document.getElementById('upload-status');
-            
-            // 处理LOGO和背景上传
-            if (currentCategory === 'logo' || currentCategory === 'background') {
-                if (uploadedImages.length === 0) {
-                    status.textContent = "请至少上传一张图片";
-                    status.className = "status-message status-error";
-                    status.style.display = "block";
-                    return;
-                }
-                
-                const imageData = uploadedImages[0];
-                const now = new Date();
-                const dateString = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-                
-                const data = {
-                    id: Date.now().toString(),
-                    image: imageData,
-                    date: dateString
-                };
-                
-                localStorage.setItem(storageKeys[currentCategory], JSON.stringify(data));
-                
-                // 更新显示
-                if (currentCategory === 'logo') {
-                    document.getElementById('logo-container').innerHTML = `<img src="${imageData}" alt="LOGO" onclick="viewImage('${imageData}')">`;
-                    document.getElementById('logo-preview').innerHTML = `<img src="${imageData}" alt="LOGO预览" onclick="viewImage('${imageData}')">`;
-                } else if (currentCategory === 'background') {
-                    updateBackgroundImage(imageData);
-                    document.getElementById('background-preview').innerHTML = `<img src="${imageData}" alt="背景预览" onclick="viewImage('${imageData}')">`;
-                }
-                
-                status.textContent = "上传成功！";
-                status.className = "status-message status-success";
-                status.style.display = "block";
-                
-                setTimeout(() => {
-                    document.getElementById('upload-modal').classList.remove('active');
-                    resetUploadForm();
-                }, 1000);
-                
-                return;
-            }
-            
-            // 处理其他分类上传
-            if (uploadedImages.length === 0) {
-                status.textContent = "请至少上传一张图片";
-                status.className = "status-message status-error";
-                status.style.display = "block";
-                return;
-            }
-            
-            const title = document.getElementById('image-title').value;
-            const date = document.getElementById('upload-date').value;
-            
-            // 获取现有数据
-            const existingData = localStorage.getItem(storageKeys[currentCategory]);
-            let items = existingData ? JSON.parse(existingData) : [];
-            if (!Array.isArray(items)) {
-                items = [];
-            }
-            
-            // 如果是编辑模式
-            if (isEditing && currentEditId) {
-                // 找到要编辑的项
-                const index = items.findIndex(item => item.id === currentEditId);
-                if (index !== -1) {
-                    // 更新现有项
-                    items[index] = {
-                        id: currentEditId,
-                        title: currentCategory === 'announcement' ? title : '',
-                        image: uploadedImages[0],
-                        date: date
-                    };
-                }
-            } else {
-                // 添加新项
-                uploadedImages.forEach(imageData => {
-                    const newItem = {
-                        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
-                        title: currentCategory === 'announcement' ? title : '',
-                        image: imageData,
-                        date: date
-                    };
-                    items.unshift(newItem); // 添加到开头
-                });
-            }
-            
-            // 保存到本地存储
-            localStorage.setItem(storageKeys[currentCategory], JSON.stringify(items));
-            
-            // 更新显示
-            loadCategoryData(currentCategory);
-            
-            status.textContent = isEditing ? "修改成功！" : "上传成功！";
-            status.className = "status-message status-success";
-            status.style.display = "block";
-            
-            setTimeout(() => {
-                document.getElementById('upload-modal').classList.remove('active');
-                resetUploadForm();
-            }, 1000);
+        // 获取类型对应的空状态文本
+        function getEmptyTextForType(type) {
+            const texts = {
+                announcement: "暂无公告",
+                business: "暂无业务介绍",
+                branches: "暂无网点信息",
+                pricing: "暂无资费信息",
+                postage: "暂无邮资信息",
+                products: "暂无邮品信息",
+                stamp: "暂无戳戳我内容"
+            };
+            return texts[type] || "暂无内容";
         }
         
-        // 删除设置项（LOGO或背景）
-        function deleteSettingItem(type) {
-            if (type === 'logo') {
-                localStorage.removeItem(storageKeys.logo);
-                document.getElementById('logo-container').innerHTML = '<div class="logo-placeholder">点击上传LOGO<br>75×75</div>';
-                document.getElementById('logo-preview').innerHTML = '<div class="current-image-placeholder"><div>当前LOGO<br>75×75像素</div></div>';
-            } else if (type === 'background') {
-                localStorage.removeItem(storageKeys.background);
-                document.getElementById('background-image').style.backgroundImage = '';
-                document.getElementById('background-preview').innerHTML = '<div class="current-image-placeholder"><div>当前背景</div></div>';
-            }
-            
-            alert('删除成功！');
+        // 查看图片
+        function viewImage(imageSrc) {
+            document.getElementById("viewed-image").src = imageSrc;
+            document.getElementById("image-viewer").classList.add("active");
         }
         
         // 编辑项目
-        function editItem(category, id) {
-            // 验证密码
-            currentCategory = category;
-            currentEditId = id;
-            isEditing = true;
+        function editItem(type, id) {
+            openPasswordModal();
             
-            // 获取项目数据
-            const existingData = localStorage.getItem(storageKeys[category]);
-            if (!existingData) return;
+            // 密码验证后打开编辑弹窗
+            const originalVerifyPassword = verifyPassword;
+            window.tempVerifyPassword = function() {
+                const password = document.getElementById("password-input").value;
+                if (password === ADMIN_PASSWORD) {
+                    passwordVerified = true;
+                    closePasswordModal();
+                    
+                    const items = appData[type];
+                    const item = items.find(item => item.id === id);
+                    
+                    if (!item) {
+                        alert("未找到该项目");
+                        return;
+                    }
+                    
+                    editingItemId = id;
+                    
+                    let html = `
+                        <div class="form-group">
+                            <label>当前图片</label>
+                            <div style="text-align: center; margin: 15px 0;">
+                                <img src="${item.image}" style="max-width: 100%; max-height: 200px; border-radius: 5px;">
+                            </div>
+                        </div>
+                    `;
+                    
+                    if (type === "announcement") {
+                        html += `
+                            <div class="form-group">
+                                <label for="edit-title">图片标题</label>
+                                <input type="text" id="edit-title" class="form-control" value="${item.title || ''}">
+                            </div>
+                        `;
+                    }
+                    
+                    html += `
+                        <div class="form-group">
+                            <label for="edit-image">更换图片 (可选)</label>
+                            <input type="file" id="edit-image" class="form-control" accept=".jpg,.jpeg,.png">
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary" onclick="saveEdit('${type}', ${id})">保存修改</button>
+                            <button class="btn btn-danger" onclick="confirmDeleteItem('${type}', ${id})">删除此项</button>
+                            <button class="btn btn-secondary" onclick="closeEditModal()">取消</button>
+                        </div>
+                    `;
+                    
+                    document.getElementById("edit-content").innerHTML = html;
+                    document.getElementById("edit-modal").classList.add("active");
+                    
+                    // 恢复原来的验证函数
+                    window.verifyPassword = originalVerifyPassword;
+                } else {
+                    document.getElementById("password-error").style.display = "block";
+                    document.getElementById("password-input").value = "";
+                    document.getElementById("password-input").focus();
+                }
+            };
             
-            let items = [];
-            try {
-                items = JSON.parse(existingData);
-            } catch(e) {
-                console.error('解析数据错误:', e);
+            window.verifyPassword = window.tempVerifyPassword;
+        }
+        
+        // 关闭编辑弹窗
+        function closeEditModal() {
+            document.getElementById("edit-modal").classList.remove("active");
+            editingItemId = null;
+        }
+        
+        // 保存编辑
+        function saveEdit(type, id) {
+            const items = appData[type];
+            const index = items.findIndex(item => item.id === id);
+            
+            if (index === -1) {
+                alert("未找到该项目");
                 return;
             }
             
-            const item = items.find(item => item.id === id);
-            if (!item) return;
+            const item = items[index];
             
-            // 打开密码验证模态框
-            document.getElementById('password-modal').classList.add('active');
-            document.getElementById('password-input').focus();
-            
-            // 密码验证通过后的回调
-            const passwordSubmit = document.getElementById('password-submit');
-            const originalClickHandler = passwordSubmit.onclick;
-            
-            passwordSubmit.onclick = function() {
-                const password = document.getElementById('password-input').value;
-                const status = document.getElementById('password-status');
-                
-                if (password === DEFAULT_PASSWORD) {
-                    status.textContent = "验证成功！";
-                    status.className = "status-message status-success";
-                    status.style.display = "block";
-                    
-                    // 关闭密码模态框
-                    setTimeout(() => {
-                        document.getElementById('password-modal').classList.remove('active');
-                        document.getElementById('password-input').value = '';
-                        status.style.display = "none";
-                        
-                        // 打开上传表单并填充数据
-                        openEditModal(category, item);
-                        
-                        // 恢复原始处理函数
-                        passwordSubmit.onclick = originalClickHandler;
-                    }, 1000);
-                } else {
-                    status.textContent = "密码错误，请重试！";
-                    status.className = "status-message status-error";
-                    status.style.display = "block";
-                    document.getElementById('password-input').value = '';
+            // 更新标题（如果是公告）
+            if (type === "announcement") {
+                const title = document.getElementById("edit-title").value;
+                if (title) {
+                    item.title = title;
                 }
-            };
-        }
-        
-        // 打开编辑模态框
-        function openEditModal(category, item) {
-            const modal = document.getElementById('upload-modal');
-            const title = document.getElementById('upload-title');
-            const titleLabel = document.getElementById('title-label');
-            const titleInput = document.getElementById('image-title');
-            
-            // 设置模态框标题
-            const categoryTitles = {
-                announcement: '修改公告',
-                business: '修改业务介绍',
-                branches: '修改网点清单',
-                fees: '修改资费清单',
-                postage: '修改邮资清单',
-                products: '修改邮品清单',
-                poke: '修改戳戳我图片'
-            };
-            
-            title.textContent = categoryTitles[category] || '修改图片';
-            
-            // 填充数据
-            if (category === 'announcement') {
-                titleLabel.style.display = 'block';
-                titleInput.style.display = 'block';
-                titleInput.value = item.title || '';
-            } else {
-                titleLabel.style.display = 'none';
-                titleInput.style.display = 'none';
             }
             
-            document.getElementById('upload-date').value = item.date;
-            
-            // 显示图片预览
-            uploadedImages = [item.image];
-            const previewContainer = document.getElementById('image-preview-container');
-            previewContainer.innerHTML = '';
-            
-            const previewItem = document.createElement('div');
-            previewItem.className = 'preview-item';
-            previewItem.innerHTML = `
-                <img src="${item.image}" alt="预览">
-                <div class="remove-preview" onclick="removePreview(0)">×</div>
-            `;
-            
-            previewContainer.appendChild(previewItem);
-            
-            // 显示模态框
-            modal.classList.add('active');
+            // 更新图片
+            const fileInput = document.getElementById("edit-image");
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    item.image = event.target.result;
+                    saveData();
+                    renderImages(type);
+                    closeEditModal();
+                    alert("修改成功！");
+                };
+                
+                reader.readAsDataURL(file);
+            } else {
+                saveData();
+                renderImages(type);
+                closeEditModal();
+                alert("修改成功！");
+            }
         }
         
         // 删除项目
-        function deleteItem(category, id) {
-            if (!confirm('确定要删除这个项目吗？')) {
-                return;
+        function deleteItem(type, id) {
+            if (confirm("确定要删除这个项目吗？")) {
+                appData[type] = appData[type].filter(item => item.id !== id);
+                saveData();
+                renderImages(type);
+                alert("删除成功！");
             }
-            
-            // 验证密码
-            const password = prompt('请输入管理密码：');
-            if (password !== DEFAULT_PASSWORD) {
-                alert('密码错误，删除操作已取消');
-                return;
-            }
-            
-            // 获取现有数据
-            const existingData = localStorage.getItem(storageKeys[category]);
-            if (!existingData) return;
-            
-            let items = [];
-            try {
-                items = JSON.parse(existingData);
-            } catch(e) {
-                console.error('解析数据错误:', e);
-                return;
-            }
-            
-            // 过滤掉要删除的项
-            items = items.filter(item => item.id !== id);
-            
-            // 保存到本地存储
-            localStorage.setItem(storageKeys[category], JSON.stringify(items));
-            
-            // 更新显示
-            loadCategoryData(category);
-            
-            alert('删除成功！');
         }
         
-        // 查看大图
-        function viewImage(imageSrc) {
-            const viewer = document.getElementById('image-viewer');
-            const viewerImage = viewer.querySelector('.viewer-image');
-            
-            viewerImage.src = imageSrc;
-            viewer.classList.add('active');
+        // 确认删除项目（从编辑弹窗）
+        function confirmDeleteItem(type, id) {
+            if (confirm("确定要删除这个项目吗？")) {
+                appData[type] = appData[type].filter(item => item.id !== id);
+                saveData();
+                renderImages(type);
+                closeEditModal();
+                alert("删除成功！");
+            }
         }
         
-        // 导出函数到全局作用域
-        window.viewImage = viewImage;
-        window.editItem = editItem;
-        window.deleteItem = deleteItem;
-        window.removePreview = removePreview;
+        // 删除LOGO
+        function deleteLogo() {
+            if (confirm("确定要删除LOGO吗？")) {
+                appData.logo = "";
+                saveData();
+                loadLogoAndBackground();
+                alert("LOGO已删除");
+            }
+        }
+        
+        // 删除背景
+        function deleteBackground() {
+            if (confirm("确定要删除背景图片吗？")) {
+                appData.background = "";
+                saveData();
+                loadLogoAndBackground();
+                alert("背景图片已删除");
+            }
+        }
+        
+        // 加载LOGO和背景
+        function loadLogoAndBackground() {
+            const logoImg = document.getElementById("logo-img");
+            const currentLogo = document.getElementById("current-logo");
+            const backgroundImg = document.getElementById("current-background");
+            const body = document.body;
+            
+            if (appData.logo) {
+                logoImg.src = appData.logo;
+                currentLogo.src = appData.logo;
+                logoImg.style.display = "block";
+            } else {
+                logoImg.style.display = "none";
+                currentLogo.src = "";
+                currentLogo.style.display = "none";
+                document.querySelector(".current-image p").textContent = "未设置LOGO";
+            }
+            
+            if (appData.background) {
+                body.style.backgroundImage = `url('${appData.background}')`;
+                backgroundImg.src = appData.background;
+                backgroundImg.style.display = "block";
+            } else {
+                body.style.backgroundImage = "";
+                backgroundImg.src = "";
+                backgroundImg.style.display = "none";
+                document.querySelectorAll(".current-image p")[1].textContent = "未设置背景";
+            }
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener("DOMContentLoaded", initApp);
+        
+        // 添加示例数据函数
+        function addSampleData() {
+            // 只有首次访问时添加示例数据
+            if (!localStorage.getItem("lyonPostal_hasSampleData")) {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const dateStr = `${year}年${month}月${day}日 ${hours}:${minutes}`;
+                
+                // 添加公告示例
+                appData.announcement.push({
+                    id: 1,
+                    image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    title: "春节服务时间调整公告",
+                    date: "2023-12-28 10:30"
+                });
+                
+                // 添加业务介绍示例
+                appData.business.push({
+                    id: 2,
+                    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    date: "2023-12-20 14:20"
+                });
+                
+                // 添加网点清单示例
+                appData.branches.push({
+                    id: 3,
+                    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    date: "2023-12-15 09:15"
+                });
+                
+                // 添加资费清单示例
+                appData.pricing.push({
+                    id: 4,
+                    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    date: "2023-12-10 16:45"
+                });
+                
+                // 添加戳戳我示例
+                appData.stamp.push({
+                    id: 5,
+                    image: "https://images.unsplash.com/photo-1564501049418-3c27787d01e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    date: "2023-12-05 11:30"
+                });
+                
+                // 保存数据
+                saveData();
+                localStorage.setItem("lyonPostal_hasSampleData", "true");
+                
+                // 重新渲染
+                renderAllImages();
+            }
+        }
+        
+        // 页面加载后添加示例数据
+        window.addEventListener("load", addSampleData);
     </script>
 </body>
 </html>
